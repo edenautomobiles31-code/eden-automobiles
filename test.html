@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Test du formulaire</title>
+<style>body{font:17px/1.5 system-ui,sans-serif;max-width:480px;margin:8vh auto;padding:0 20px}input,button{font:inherit;padding:10px;width:100%;margin:6px 0;box-sizing:border-box}</style>
+</head>
+<body>
+<h1>Test du formulaire</h1>
+<p>Page de contrôle, à supprimer avant le lancement.</p>
+<form id="f">
+<input name="nom" placeholder="Nom" required>
+<input name="telephone" type="tel" placeholder="Téléphone" required>
+<input name="website" style="display:none" tabindex="-1" autocomplete="off">
+<button>Envoyer une demande de rappel de test</button>
+</form>
+<p id="r"></p>
+<script>
+document.getElementById("f").onsubmit = async (e) => {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(e.target));
+  d.type = "rappel";
+  d.vehicule = "Test";
+  const out = document.getElementById("r");
+  out.textContent = "Envoi…";
+  try {
+    const res = await fetch("/api/demande", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) });
+    const j = await res.json();
+    out.textContent = j.ok ? "Réussi : demande enregistrée." : "Échec : " + j.error;
+  } catch (err) {
+    out.textContent = "Échec : le serveur ne répond pas.";
+  }
+};
+</script>
+</body>
+</html>
