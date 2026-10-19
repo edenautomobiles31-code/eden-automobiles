@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Administration – EDEN AUTOMOBILES</title>
+<style>
+:root{--bg:#EDEFF0;--sf:#F8F9F9;--ink:#1E2327;--mu:#5C666C;--ac:#1F4A3D;--ai:#fff;--br:#A9854A;--ln:#D3D8DA;--wa:#9A3B2E;color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root{--bg:#14181A;--sf:#1C2124;--ink:#E8ECED;--mu:#9AA5AA;--ac:#7CC4AC;--ai:#0F1A16;--br:#C9A66B;--ln:#2E3638;--wa:#E0847A}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+h1,h2,h3{margin:0;line-height:1.15}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 60px}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--ln);z-index:5}
+.top,.tabs{max-width:900px;margin:0 auto;padding:12px 16px 0;display:flex;gap:8px;justify-content:space-between;align-items:center}
+.tabs{justify-content:flex-start;overflow-x:auto;padding-bottom:10px}
+.logo{font-weight:800;font-size:20px}
+.tab{border:0;background:none;color:var(--ink);font:600 15px inherit;padding:8px 14px;border-radius:99px;cursor:pointer;white-space:nowrap}
+.tab.on{background:var(--ac);color:var(--ai)}
+.n{background:var(--br);color:#1b1608;border-radius:99px;padding:0 7px;font-size:12px;margin-left:5px}
+.btn{border:0;cursor:pointer;font:600 15px system-ui;padding:10px 16px;border-radius:10px;background:var(--ac);color:var(--ai)}
+.btn.g{background:none;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ln)}
+.btn.d{color:var(--wa)}
+.btn:disabled{opacity:.5}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:22px 0 14px}
+.chip{border:1.5px solid var(--ln);background:none;color:var(--ink);padding:5px 12px;border-radius:99px;cursor:pointer;font:inherit}
+.chip.on{border-color:var(--ac);font-weight:700}
+.it,.rq{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:14px;margin-bottom:12px}
+.it{display:grid;grid-template-columns:88px 1fr auto;gap:14px;align-items:center}
+.th{width:88px;height:66px;border-radius:8px;background:var(--bg);display:grid;place-items:center;color:var(--mu);font-size:12px;overflow:hidden}
+.th img{width:100%;height:100%;object-fit:cover}
+.mu{color:var(--mu);font-size:14px}
+.pr{font-weight:800;font-size:18px}
+.ac{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+select,input,textarea{font:16px system-ui;padding:9px 10px;border-radius:8px;border:1.5px solid var(--ln);background:var(--bg);color:var(--ink);width:100%}
+.ac select{width:auto}
+.chk{display:flex;gap:8px;align-items:center;font-weight:600}
+.chk input{width:auto}
+dl{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;margin:10px 0}
+dt{color:var(--mu)}dd{margin:0}
+.note{background:var(--sf);border-left:4px solid var(--br);padding:10px 14px;border-radius:8px;margin:14px 0}
+.box{max-width:380px;margin:12vh auto;padding:0 16px}
+.box label,dialog label{display:block;font-weight:600;font-size:14px;margin:12px 0 4px}
+.empty{border:1.5px dashed var(--ln);border-radius:14px;padding:30px;text-align:center;color:var(--mu)}
+dialog{border:0;border-radius:18px;width:min(560px,calc(100% - 20px));max-height:calc(100% - 20px);background:var(--sf);color:var(--ink);padding:22px}
+dialog::backdrop{background:rgba(10,14,16,.55)}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.phs{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0}
+.pt{position:relative;width:64px;height:50px}.pt img{width:100%;height:100%;object-fit:cover;border-radius:6px}
+.pt button{position:absolute;top:-7px;right:-7px;width:22px;height:22px;border-radius:50%;border:0;background:var(--ink);color:var(--bg);cursor:pointer}
+@media(max-width:640px){.it{grid-template-columns:70px 1fr}.th{width:70px;height:54px}.r2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<dialog id="dlg"></dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=n=>Number(n||0).toLocaleString("fr-FR");
+const dt=t=>new Date(t).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short"});
+const AS={disponible:"Disponible",reserve:"Réservé",vendu:"Vendu"},RS={nouvelle:"Nouvelle",rappelee:"Rappelée",traitee:"Traitée"};
+const TY={rap:"rappel",est:"estimation",res:"reservation"},TT={rap:"Demandes de rappel",est:"Demandes d’estimation",res:"Réservations"};
+let sb,ann=[],dem=[],tab="ann",flt="all",pend=null,ph=[],editing=null,timer=null;
+
+async function init(){
+ try{
+  const c=await (await fetch("/api/config")).json();
+  if(!c.url||!c.anonKey)throw 0;
+  sb=supabase.createClient(c.url,c.anonKey);
+ }catch(e){$("app").innerHTML=`<div class="box"><p class="note">Configuration manquante : vérifiez SUPABASE_URL et SUPABASE_ANON_KEY dans Cloudflare.</p></div>`;return}
+ const {data}=await sb.auth.getSession();
+ data.session?start():login();
+}
+function login(msg){
+ clearInterval(timer);
+ $("app").innerHTML=`<form id="lf" class="box"><h1>Administration</h1><p class="mu">EDEN AUTOMOBILES</p>${msg?`<p class="note">${esc(msg)}</p>`:""}<label>Email<input id="em" type="email" autocomplete="username" required></label><label>Mot de passe<input id="pw" type="password" autocomplete="current-password" required></label><p><button class="btn">Se connecter</button></p></form>`;
+ $("lf").onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:$("em").value.trim(),password:$("pw").value});error?login("Identifiants incorrects."):start()};
+}
+async function start(){await load(true);timer=setInterval(()=>load(false),60000)}
+async function load(force){
+ const [a,d]=await Promise.all([sb.from("annonces").select("*").order("created_at",{ascending:false}),sb.from("demandes").select("*").order("created_at",{ascending:false})]);
+ if(a.error||d.error){login("Session expirée, reconnectez-vous.");return}
+ ann=a.data;dem=d.data;
+ if(force||(!document.querySelector("dialog[open]")&&document.activeElement.tagName!=="TEXTAREA"))render();
+}
+function render(){
+ const nw=t=>dem.filter(d=>d.type===t&&d.statut==="nouvelle").length;
+ const tabs=[["ann","Annonces",ann.length],...Object.keys(TY).map(k=>[k,TT[k],nw(TY[k])])];
+ $("app").innerHTML=`<header><div class="top"><span class="logo">EDEN AUTOMOBILES · Admin</span><span><button class="btn g" data-refresh>Actualiser</button> <button class="btn g" data-out>Déconnexion</button></span></div>
+ <div class="tabs">${tabs.map(([k,l,n])=>`<button class="tab ${tab===k?"on":""}" data-tab="${k}">${l}${n?`<span class="n">${n}</span>`:""}</button>`).join("")}</div></header>
+ <div class="wrap" id="msg-wrap">${tab==="ann"?annView():reqView(dem.filter(d=>d.type===TY[tab]))}</div>`;
+}
+function annView(){
+ const l=ann.map(a=>{const p=(a.photos||[])[0];return `<article class="it"><div class="th">${p?`<img src="${esc(p)}" alt="">`:"Sans photo"}</div>
+ <div><h3>${esc(a.titre)}</h3><div class="mu">${esc(a.annee)} · ${fmt(a.km)} km · ${esc(a.energie)} · ${esc(a.boite)} · ${(a.photos||[]).length} photo(s)</div><div class="pr">${fmt(a.prix)} €</div></div>
+ <div class="ac"><select data-ast="${a.id}" aria-label="Statut">${Object.entries(AS).map(([k,v])=>`<option value="${k}" ${a.statut===k?"selected":""}>${v}</option>`).join("")}</select>
+ <button class="btn g" data-edit="${a.id}">Modifier</button><button class="btn g d" data-del="annonces:${a.id}">${pend==="annonces:"+a.id?"Confirmer":"Supprimer"}</button></div></article>`}).join("");
+ return `<div class="bar"><h2>Vos annonces</h2><button class="btn" data-new>Nouvelle annonce</button></div>${l||`<div class="empty">Aucune annonce. Ajoutez votre premier véhicule avec « Nouvelle annonce ».</div>`}`;
+}
+function reqView(all){
+ const l=flt==="all"?all:all.filter(d=>d.statut===flt);
+ const chips=[["all","Toutes"],...Object.entries(RS)].map(([k,v])=>`<button class="chip ${flt===k?"on":""}" data-flt="${k}">${v}</button>`).join("");
+ const cards=l.map(d=>{
+  const r=d.type==="rappel"?[["Véhicule",d.vehicule]]:d.type==="reservation"?[["Véhicule",d.vehicule],["Récupération",d.livraison==="domicile"?"Livraison à domicile":"Retrait au garage"],["Adresse de livraison",d.adresse_livraison]]
+   :[["Immatriculation",d.immatriculation||(d.rappele?"Supprimée (client rappelé)":"")],["Véhicule",d.marque_modele],["Année",d.annee],["Kilométrage",d.km?fmt(d.km)+" km":""],["Énergie",d.energie],["Boîte",d.boite],["État",d.etat],["Souhait",d.souhait==="depot"?"Dépôt-vente":d.souhait==="rachat"?"Rachat par le garage":""]];
+  r.push(["Téléphone",d.telephone],["Email",d.email],["Ville",d.ville]);
+  const hint=d.rappele?`<p class="mu">Rappelé le ${dt(d.rappele_at)}${d.type==="estimation"?" · plaque supprimée":""}</p>`:d.type==="estimation"?`<p class="mu">Cocher « Client rappelé » supprime définitivement la plaque d’immatriculation.</p>`:"";
+  return `<article class="rq"><h3>${esc(d.nom)} <span class="mu">${dt(d.created_at)}</span></h3><dl>${r.filter(x=>x[1]).map(x=>`<dt>${x[0]}</dt><dd>${esc(x[1])}</dd>`).join("")}</dl>
+  <label class="mu" for="n${d.id}">Note interne</label><textarea id="n${d.id}" rows="2" data-note="${d.id}">${esc(d.note)}</textarea>${hint}
+  <div class="ac"><label class="chk"><input type="checkbox" data-rap="${d.id}" ${d.rappele?"checked disabled":""}> Client rappelé</label>
+  <select data-rst="${d.id}" aria-label="Statut">${Object.entries(RS).map(([k,v])=>`<option value="${k}" ${d.statut===k?"selected":""}>${v}</option>`).join("")}</select>
+  <button class="btn g d" data-del="demandes:${d.id}">${pend==="demandes:"+d.id?"Confirmer la suppression":"Supprimer"}</button></div></article>`}).join("");
+ return `<div class="bar"><h2>${TT[tab]}</h2><div>${chips}</div></div>${cards||`<div class="empty">Aucune demande ${flt==="all"?"pour le moment":"avec ce statut"}.</div>`}`;
+}
+const phHtml=()=>ph.map((u,k)=>`<div class="pt"><img src="${esc(u)}" alt=""><button type="button" data-rph="${k}" aria-label="Retirer la photo ${k+1}">×</button></div>`).join("");
+function form(a){
+ editing=a?a.id:null;a=a||{};ph=(a.photos||[]).slice();
+ const sel=(id,o,v)=>`<select id="${id}">${o.map(x=>`<option ${x===v?"selected":""}>${x}</option>`).join("")}</select>`;
+ $("dlg").innerHTML=`<h2>${a.id?"Modifier l’annonce":"Nouvelle annonce"}</h2><form id="fa">
+ <label>Marque et modèle<input id="f1" value="${esc(a.titre)}" required></label>
+ <div class="r2"><label>Prix (€)<input id="f2" type="number" min="0" value="${esc(a.prix)}" required></label><label>Année<input id="f3" type="number" min="1980" max="2027" value="${esc(a.annee)}"></label></div>
+ <div class="r2"><label>Kilométrage<input id="f4" type="number" min="0" value="${esc(a.km)}"></label><label>Statut<select id="f5">${Object.entries(AS).map(([k,v])=>`<option value="${k}" ${(a.statut||"disponible")===k?"selected":""}>${v}</option>`).join("")}</select></label></div>
+ <div class="r2"><label>Énergie${sel("f6",["Essence","Diesel","Hybride","Électrique","GPL"],a.energie)}</label><label>Boîte${sel("f7",["Manuelle","Automatique"],a.boite)}</label></div>
+ <label>Équipements (un par ligne)<textarea id="f8" rows="4">${esc((a.equipements||[]).join("\n"))}</textarea></label>
+ <label>Description<textarea id="f9" rows="3">${esc(a.description)}</textarea></label>
+ <label>Photos (20 maximum, la première est la photo principale)</label><div class="phs" id="phs">${phHtml()}</div><input id="f10" type="file" accept="image/*" multiple>
+ <p id="fm" class="mu"></p><div class="ac"><button class="btn" id="fs">Enregistrer</button><button class="btn g" type="button" data-cancel>Annuler</button></div></form>`;
+ $("fa").onsubmit=async e=>{
+  e.preventDefault();$("fs").disabled=true;$("fm").textContent="Enregistrement…";
+  try{
+   const files=[...$("f10").files].slice(0,Math.max(0,20-ph.length));
+   for(const f of files){const b=await shrink(f),p=crypto.randomUUID()+".jpg";
+    const u=await sb.storage.from("photos").upload(p,b,{contentType:"image/jpeg"});if(u.error)throw u.error;
+    ph.push(sb.storage.from("photos").getPublicUrl(p).data.publicUrl)}
+   const o={titre:$("f1").value.trim(),prix:+$("f2").value,annee:+$("f3").value||null,km:+$("f4").value||null,statut:$("f5").value,energie:$("f6").value,boite:$("f7").value,
+    equipements:$("f8").value.split("\n").map(s=>s.trim()).filter(Boolean),description:$("f9").value.trim(),photos:ph};
+   const r=editing?await sb.from("annonces").update(o).eq("id",editing):await sb.from("annonces").insert(o);
+   if(r.error)throw r.error;
+   $("dlg").close();await load(true);
+  }catch(err){$("fm").textContent="Échec : "+(err.message||"erreur")+". Réessayez.";$("fs").disabled=false}
+ };
+ $("dlg").showModal();
+}
+async function shrink(f){
+ const i=await createImageBitmap(f),s=Math.min(1,1600/Math.max(i.width,i.height)),c=document.createElement("canvas");
+ c.width=Math.round(i.width*s);c.height=Math.round(i.height*s);c.getContext("2d").drawImage(i,0,0,c.width,c.height);
+ return new Promise(r=>c.toBlob(r,"image/jpeg",.82));
+}
+async function act(p){const r=await p;if(r&&r.error)alert("Échec : "+r.error.message);await load(true)}
+document.addEventListener("click",e=>{
+ const t=e.target.closest("button");if(!t)return;const d=t.dataset;
+ if(d.tab){tab=d.tab;flt="all";pend=null;render()}
+ else if(d.flt){flt=d.flt;render()}
+ else if("new" in d)form(null);
+ else if(d.edit)form(ann.find(a=>a.id===d.edit));
+ else if("cancel" in d)$("dlg").close();
+ else if("refresh" in d)load(true);
+ else if("out" in d)sb.auth.signOut().then(()=>login());
+ else if(d.rph!==undefined){ph.splice(+d.rph,1);$("phs").innerHTML=phHtml()}
+ else if(d.del){if(pend===d.del){const [tb,id]=d.del.split(":");pend=null;act(sb.from(tb).delete().eq("id",id))}else{pend=d.del;render()}}
+});
+document.addEventListener("change",e=>{
+ const d=e.target.dataset,v=e.target.value;
+ if(d.ast)act(sb.from("annonces").update({statut:v}).eq("id",d.ast));
+ if(d.rst)act(sb.from("demandes").update({statut:v}).eq("id",d.rst));
+ if(d.note)act(sb.from("demandes").update({note:v}).eq("id",d.note));
+ if(d.rap&&e.target.checked)act(sb.from("demandes").update({rappele:true}).eq("id",d.rap));
+});
+init();
+</script>
+</body>
+</html>
