@@ -1,7 +1,7 @@
 // Fonction du site (Cloudflare Pages) : enregistre une demande client
 // (rappel, estimation, réservation) puis envoie les emails.
 // La plaque d'immatriculation n'est JAMAIS mise dans un email.
-
+ 
 const str = (v, n = 200) => (typeof v === "string" ? v.trim().slice(0, n) : "") || null;
 const num = (v) => {
   const n = Number(v);
@@ -12,7 +12,7 @@ const esc = (s) =>
 const reply = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json" } });
 const LABELS = { rappel: "rappel", estimation: "estimation", reservation: "réservation" };
-
+ 
 async function sendMail(env, to, subject, html) {
   try {
     await fetch("https://api.resend.com/emails", {
@@ -24,7 +24,7 @@ async function sendMail(env, to, subject, html) {
     // Un échec d'envoi d'email ne doit jamais faire perdre la demande.
   }
 }
-
+ 
 export async function onRequestPost({ request, env }) {
   if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_KEY) {
     return reply({ ok: false, error: "Configuration incomplète." }, 500);
@@ -38,7 +38,7 @@ export async function onRequestPost({ request, env }) {
   if (b && b.website) return reply({ ok: true }); // piège anti-robots
   const type = b && b.type;
   if (!LABELS[type]) return reply({ ok: false, error: "Type de demande inconnu." }, 400);
-
+ 
   const d = {
     type,
     nom: str(b.nom, 100),
@@ -54,11 +54,12 @@ export async function onRequestPost({ request, env }) {
     boite: str(b.boite, 30),
     etat: str(b.etat, 40),
     souhait: ["rachat", "depot"].includes(b.souhait) ? b.souhait : null,
+    projet_achat: ["oui", "non"].includes(b.projet_achat) ? b.projet_achat : null,
     livraison: ["domicile", "garage"].includes(b.livraison) ? b.livraison : null,
     adresse_livraison: str(b.adresse_livraison, 250),
     immatriculation: type === "estimation" ? (str(b.immatriculation, 12) || "").toUpperCase() || null : null,
   };
-
+ 
   const chiffres = (d.telephone || "").replace(/\D/g, "");
   if (!d.nom || chiffres.length < 8) return reply({ ok: false, error: "Nom et téléphone valides requis." }, 400);
   const mailOk = d.email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email);
@@ -66,7 +67,7 @@ export async function onRequestPost({ request, env }) {
   if (type === "reservation" && (!d.livraison || (d.livraison === "domicile" && !d.adresse_livraison))) {
     return reply({ ok: false, error: "Mode de récupération requis." }, 400);
   }
-
+ 
   const r = await fetch(`${env.SUPABASE_URL}/rest/v1/demandes`, {
     method: "POST",
     headers: {
@@ -78,7 +79,7 @@ export async function onRequestPost({ request, env }) {
     body: JSON.stringify(d),
   });
   if (!r.ok) return reply({ ok: false, error: "Enregistrement impossible." }, 502);
-
+ 
   const lignes = [
     ["Nom", d.nom],
     ["Téléphone", d.telephone],
@@ -91,10 +92,11 @@ export async function onRequestPost({ request, env }) {
     ["Boîte", d.boite],
     ["État", d.etat],
     ["Souhait", d.souhait === "depot" ? "Dépôt-vente" : d.souhait === "rachat" ? "Rachat par le garage" : null],
+    ["Projet d'achat d'un véhicule", d.projet_achat === "oui" ? "Oui" : d.projet_achat === "non" ? "Non" : null],
     ["Récupération", d.livraison === "domicile" ? "Livraison à domicile" : d.livraison === "garage" ? "Retrait au garage" : null],
     ["Adresse de livraison", d.adresse_livraison],
   ].filter(([, v]) => v);
-
+ 
   const tableau = lignes.map(([k, v]) => `<tr><td><b>${esc(k)}</b></td><td>${esc(v)}</td></tr>`).join("");
   const envois = [];
   if (env.GARAGE_EMAIL) {
@@ -125,3 +127,4 @@ export async function onRequestPost({ request, env }) {
   await Promise.all(envois);
   return reply({ ok: true });
 }
+ 
