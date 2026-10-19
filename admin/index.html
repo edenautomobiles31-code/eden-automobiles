@@ -105,7 +105,7 @@ function reqView(all){
  const chips=[["all","Toutes"],...Object.entries(RS)].map(([k,v])=>`<button class="chip ${flt===k?"on":""}" data-flt="${k}">${v}</button>`).join("");
  const cards=l.map(d=>{
   const r=d.type==="rappel"?[["Véhicule",d.vehicule]]:d.type==="reservation"?[["Véhicule",d.vehicule],["Récupération",d.livraison==="domicile"?"Livraison à domicile":"Retrait au garage"],["Adresse de livraison",d.adresse_livraison]]
-   :[["Immatriculation",d.immatriculation||(d.rappele?"Supprimée (client rappelé)":"")],["Véhicule",d.marque_modele],["Année",d.annee],["Kilométrage",d.km?fmt(d.km)+" km":""],["Énergie",d.energie],["Boîte",d.boite],["État",d.etat],["Souhait",d.souhait==="depot"?"Dépôt-vente":d.souhait==="rachat"?"Rachat par le garage":""]];
+   :[["Immatriculation",d.immatriculation||(d.rappele?"Supprimée (client rappelé)":"")],["Véhicule",d.marque_modele],["Année",d.annee],["Kilométrage",d.km?fmt(d.km)+" km":""],["Énergie",d.energie],["Boîte",d.boite],["État",d.etat],["Souhait",d.souhait==="depot"?"Dépôt-vente":d.souhait==="rachat"?"Rachat par le garage":""],["Projet d’achat",d.projet_achat==="oui"?"Oui 🎁":d.projet_achat==="non"?"Non":""]];
   r.push(["Téléphone",d.telephone],["Email",d.email],["Ville",d.ville]);
   const hint=d.rappele?`<p class="mu">Rappelé le ${dt(d.rappele_at)}${d.type==="estimation"?" · plaque supprimée":""}</p>`:d.type==="estimation"?`<p class="mu">Cocher « Client rappelé » supprime définitivement la plaque d’immatriculation.</p>`:"";
   return `<article class="rq"><h3>${esc(d.nom)} <span class="mu">${dt(d.created_at)}</span></h3><dl>${r.filter(x=>x[1]).map(x=>`<dt>${x[0]}</dt><dd>${esc(x[1])}</dd>`).join("")}</dl>
