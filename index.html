@@ -43,7 +43,19 @@ section h2{font-size:clamp(28px,4vw,44px);max-width:18ch}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px;margin-top:32px}
 .card{background:var(--sf);border:1px solid var(--ln);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;position:relative}
 .ph{aspect-ratio:4/3;background:var(--ln);display:grid;place-items:center;color:var(--mu);font-size:14px;overflow:hidden}
+.ph{position:relative}
 .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.sl{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:pointer}
+.sl::-webkit-scrollbar{display:none}
+.sl img{flex:0 0 100%;scroll-snap-align:start}
+.ar{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;padding:0;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#1e2327;font-size:22px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.ar.l{left:8px}.ar.r{right:8px}
+.dots{position:absolute;bottom:8px;left:0;right:0;display:flex;gap:5px;justify-content:center;pointer-events:none}
+.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.6);box-shadow:0 0 3px rgba(0,0,0,.4)}
+.dots i.on{background:#fff}
+.nm{background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer;letter-spacing:inherit}
+.nm:hover{text-decoration:underline}
+@media(hover:none){.ar{display:none}}
 .in{padding:16px 18px 18px;display:flex;flex-direction:column;gap:5px;flex:1}
 .in h3{font-size:20px}.mt{color:var(--mu);font-size:14.5px}
 .pr{font:800 25px var(--hd);margin-top:4px}
@@ -56,7 +68,10 @@ section h2{font-size:clamp(28px,4vw,44px);max-width:18ch}
 .rev{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:20px}.rev p{margin:8px 0 12px}
 .info{display:grid;grid-template-columns:1fr 1fr;gap:40px}
 dl{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin:22px 0 0}dt{font-weight:600}dd{margin:0;color:var(--mu)}
-.map{min-height:230px;border-radius:18px;border:1px dashed var(--mu);display:grid;place-items:center;text-align:center;padding:20px;color:var(--mu)}
+.map{position:relative;min-height:320px;border-radius:18px;border:1px solid var(--ln);overflow:hidden;display:grid;place-items:center;text-align:center;padding:20px;color:var(--ink);background:linear-gradient(135deg,transparent 46%,#f6f8f7 46%,#f6f8f7 54%,transparent 54%),linear-gradient(#cfd8d3 2px,transparent 2px) 0 0/56px 56px,linear-gradient(90deg,#cfd8d3 2px,transparent 2px) 0 0/56px 56px,#e3e9e5}
+.map .mp{background:rgba(248,249,249,.94);border-radius:16px;padding:20px 22px;max-width:340px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.map .mp .btn{margin:10px 4px 0;padding:11px 16px;font-size:15px}.map small{display:block;margin-top:10px;color:var(--mu);font-size:12.5px;line-height:1.4}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 footer{border-top:1px solid var(--ln);padding:26px 0;color:var(--mu);font-size:14px}
 footer .w{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:space-between}
 footer button{background:none;border:0;color:inherit;font:inherit;text-decoration:underline;cursor:pointer;padding:0}
@@ -109,13 +124,17 @@ input,select,textarea{width:100%;font:16px system-ui;padding:12px;border-radius:
 <section id="contact"><div class="w info"><div><h2>Passez nous voir</h2>
 <dl><dt>Adresse</dt><dd>3 chemin de Candie, 31120 Portet-sur-Garonne</dd><dt>Téléphone</dt><dd><a href="tel:+33682007194">06 82 00 71 94</a></dd><dt>Email</dt><dd><a href="mailto:accueil.edenautomobiles@gmail.com">accueil.edenautomobiles@gmail.com</a></dd>
 <dt>Horaires</dt><dd>Lundi à jeudi : 9 h 30–13 h et 14 h–19 h<br>Vendredi : 9 h 30–13 h et 15 h–19 h<br>Samedi : 10 h–16 h<br>Dimanche : fermé</dd></dl></div>
-<div class="map"><div>3 chemin de Candie<br>31120 Portet-sur-Garonne<br><br><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=3+chemin+de+Candie+31120+Portet-sur-Garonne">Itinéraire</a></div></div></div></section>
+<div class="map" id="map"><div class="mp"><span style="font-size:30px" aria-hidden="true">📍</span><br><strong>EDEN AUTOMOBILES</strong><br>3 chemin de Candie<br>31120 Portet-sur-Garonne<br><button class="btn" type="button" data-map>Afficher la carte</button><a class="btn g" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=3+chemin+de+Candie+31120+Portet-sur-Garonne">Itinéraire</a><small>L’affichage charge la carte de Google, qui peut déposer des cookies.</small></div></div></div></section>
 </main>
 <footer><div class="w"><span>© EDEN AUTOMOBILES</span><span><button type="button" data-legal>Mentions légales</button> · <button type="button" data-priv>Confidentialité</button></span></div></footer>
 <dialog id="dlg"><div class="d" id="db"></div></dialog>
 
 <script>
-const REVIEWS=[]; // Avis réels à ajouter ici : {nom:"Prénom N.", texte:"…", date:"il y a 1 mois"}
+const REVIEWS=[
+{nom:"Sana M.",date:"Avis Google · visite en septembre",texte:"Étant une femme seule, j'avais peur de me faire arnaquer. J'ai donc écumé un certain nombre de garages, sans me décider. En contactant leur garage pour une de leurs voitures, j'ai remarqué tout de suite leur honnêteté et leur professionnalisme (contrat et explications techniques très claires et transparentes), en plus d'un prix bien compétitif par rapport à leurs confrères. Au-delà de ces qualités rares, les 2 propriétaires sont d'une extrême gentillesse, très bienveillants et à l'écoute des éventuelles préoccupations. De plus, mon ancienne voiture étant hs, en attendant que la nouvelle soit prête, ils ont eu la générosité de me prêter un véhicule à titre gracieux. Mon achat s'est très bien déroulé et je suis repartie en totale confiance et sereine par rapport à mon choix. Merci infiniment pour tout! Je recommande les yeux fermés ! Moi qui suis très méfiante 😅"},
+{nom:"Thierry P.",date:"Avis Google · visite en août",texte:"Bon accueil, communication au top, je me suis senti en confiance dès le départ, après avoir réalisé une recherche personnalisée j'ai reçu mon véhicule en peu de temps en état, Je tiens à remercier toute l'équipe pour leur professionnalisme et mention spéciale à mon ami B."},
+{nom:"Yann N.",date:"Avis Google · visite en août",texte:"Accueil agréable de toute l'équipe. Ils sont allé au delà de nos besoins en nous proposant le parfait vehicule familial. Malgré cet achat d'occasion, il ont remis le vehicule comme neuf. Se sont vraiment des professionnels passionnés et à l'écoute, ils vont chercher VOTRE voiture et non une simple voiture à vendre. Vous pouvez leurs faire confiance les yeux fermés."}
+];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmt=n=>Number(n||0).toLocaleString("fr-FR");
@@ -129,9 +148,9 @@ async function loadCars(){
   const c=await (await fetch("/api/config")).json();
   const r=await fetch(c.url+"/rest/v1/annonces?select=*&statut=neq.vendu&order=created_at.desc",{headers:{apikey:c.anonKey}});
   if(!r.ok)throw 0;CARS=await r.json();
-  $("cars").innerHTML=CARS.length?CARS.map((a,i)=>{const p=(a.photos||[])[0];
-   return `<article class="card">${a.statut==="reserve"?'<span class="tag">Réservé</span>':""}<div class="ph">${p?`<img src="${esc(p)}" alt="${esc(a.titre)}" loading="lazy">`:"Photo à venir"}</div>
-   <div class="in"><h3>${esc(a.titre)}</h3><div class="mt">${[a.annee,a.km!=null?fmt(a.km)+" km":"",a.energie,a.boite].filter(Boolean).map(esc).join(" · ")}</div><div class="pr">${fmt(a.prix)} € TTC</div>
+  $("cars").innerHTML=CARS.length?CARS.map((a,i)=>{const ps=(a.photos||[]).slice(0,4);
+   return `<article class="card">${a.statut==="reserve"?'<span class="tag">Réservé</span>':""}<div class="ph">${ps.length?`<div class="sl" data-open="${i}">${ps.map(u=>`<img src="${esc(u)}" alt="${esc(a.titre)}" loading="lazy" draggable="false">`).join("")}</div>${ps.length>1?`<button type="button" class="ar l" data-sl="-1" aria-label="Photo précédente">‹</button><button type="button" class="ar r" data-sl="1" aria-label="Photo suivante">›</button><div class="dots">${ps.map((_,k)=>`<i class="${k?"":"on"}"></i>`).join("")}</div>`:""}`:"Photo à venir"}</div>
+   <div class="in"><h3><button type="button" class="nm" data-car="${i}">${esc(a.titre)}</button></h3><div class="mt">${[a.annee,a.km!=null?fmt(a.km)+" km":"",a.energie,a.boite].filter(Boolean).map(esc).join(" · ")}</div><div class="pr">${fmt(a.prix)} € TTC</div>
    <div class="ac"><button class="btn g" type="button" data-car="${i}">Voir la fiche</button><button class="btn" type="button" data-car="${i}" data-call>Être rappelé</button></div></div></article>`}).join(""):'<div class="empty" style="grid-column:1/-1">Aucun véhicule en ligne pour le moment. Contactez‑nous au 06 82 00 71 94.</div>';
  }catch(e){$("cars").innerHTML='<div class="empty" style="grid-column:1/-1">Les véhicules ne sont pas disponibles pour le moment. Appelez‑nous au 06 82 00 71 94.</div>'}
 }
@@ -188,18 +207,23 @@ function openBuy(i){
 }
 function info(t,h){$("db").innerHTML=`${X}<h2>${t}</h2>${h}<button class="btn" type="button" data-close>Fermer</button>`;$("dlg").showModal()}
 const LEGAL=()=>info("Mentions légales",`<p><strong>Éditeur du site</strong><br>EDEN AUTOMOBILES, SAS au capital de 1 000 €<br>3 chemin de Candie, 31120 Portet-sur-Garonne<br>SIRET : 938 885 761 00016 · RCS Toulouse<br>TVA intracommunautaire : FR07938885761<br>Téléphone : 06 82 00 71 94<br>Email : accueil.edenautomobiles@gmail.com</p><p><strong>Responsable de la publication</strong><br>Badr Touati</p><p><strong>Hébergement</strong><br>Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis</p>`);
-const PRIV=()=>info("Politique de confidentialité",`<p><strong>Responsable du traitement :</strong> EDEN AUTOMOBILES, 3 chemin de Candie, 31120 Portet-sur-Garonne, accueil.edenautomobiles@gmail.com.</p><p><strong>Données collectées :</strong> nom, téléphone, email, ville, adresse de livraison le cas échéant, et informations sur votre véhicule (dont l’immatriculation pour une estimation).</p><p><strong>Finalité :</strong> vous rappeler et traiter votre demande d’estimation, de reprise, de dépôt-vente ou de réservation. Ces données ne sont pas revendues.</p><p><strong>Immatriculation :</strong> elle est supprimée dès que vous avez été rappelé.</p><p><strong>Conservation :</strong> le temps nécessaire au traitement de votre demande.</p><p><strong>Vos droits :</strong> accès, rectification, suppression, opposition. Écrivez-nous à l’adresse ci-dessus. Vous pouvez aussi saisir la CNIL (cnil.fr).</p><p><strong>Cookies :</strong> ce site n’utilise aucun cookie de suivi.</p>`);
+const PRIV=()=>info("Politique de confidentialité",`<p><strong>Responsable du traitement :</strong> EDEN AUTOMOBILES, 3 chemin de Candie, 31120 Portet-sur-Garonne, accueil.edenautomobiles@gmail.com.</p><p><strong>Données collectées :</strong> nom, téléphone, email, ville, adresse de livraison le cas échéant, et informations sur votre véhicule (dont l’immatriculation pour une estimation).</p><p><strong>Finalité :</strong> vous rappeler et traiter votre demande d’estimation, de reprise, de dépôt-vente ou de réservation. Ces données ne sont pas revendues.</p><p><strong>Immatriculation :</strong> elle est supprimée dès que vous avez été rappelé.</p><p><strong>Conservation :</strong> le temps nécessaire au traitement de votre demande.</p><p><strong>Vos droits :</strong> accès, rectification, suppression, opposition. Écrivez-nous à l’adresse ci-dessus. Vous pouvez aussi saisir la CNIL (cnil.fr).</p><p><strong>Cookies :</strong> ce site n’utilise aucun cookie de suivi. La carte Google Maps de la page Contact n’est chargée que si vous cliquez sur « Afficher la carte » : Google peut alors déposer des cookies et recevoir votre adresse IP.</p>`);
 document.addEventListener("click",e=>{
- const t=e.target.closest("button,a[data-est]");if(!t)return;const d=t.dataset;
+ const t=e.target.closest("button,a[data-est],[data-open]");if(!t)return;const d=t.dataset;
  if("close" in d){$("dlg").close()}
  else if("est" in d){e.preventDefault();openEst(d.mode,$("pl").value)}
+ else if(d.sl!==undefined){const sl=t.parentElement.querySelector(".sl");sl.scrollBy({left:+d.sl*sl.clientWidth,behavior:"smooth"})}
+ else if(d.open!==undefined)openCar(+d.open);
  else if(d.car!==undefined)openCar(+d.car,"call" in d);
  else if(d.buy!==undefined)openBuy(+d.buy);
  else if(d.ph!==undefined){const u=CARS[CUR].photos||[];$("gm").innerHTML=`<img src="${esc(u[+d.ph]||"")}" alt="">`;document.querySelectorAll(".tb").forEach(b=>b.classList.toggle("on",b===t))}
+ else if("map" in d)showMap();
  else if("legal" in d)LEGAL();else if("priv" in d)PRIV();
 });
 $("dlg").addEventListener("click",e=>{if(e.target===$("dlg"))$("dlg").close()});
 $("pl").addEventListener("input",e=>{const v=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,7);e.target.value=v.length>5?v.slice(0,2)+"-"+v.slice(2,5)+"-"+v.slice(5):v.length>2?v.slice(0,2)+"-"+v.slice(2):v});
+function showMap(){const m=$("map");m.style.padding="0";m.innerHTML='<iframe title="Plan d’accès à EDEN AUTOMOBILES" src="https://www.google.com/maps?q=3+chemin+de+Candie+31120+Portet-sur-Garonne&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>'}
+document.addEventListener("scroll",e=>{const s=e.target;if(!s.classList||!s.classList.contains("sl"))return;const k=Math.round(s.scrollLeft/s.clientWidth);s.parentElement.querySelectorAll(".dots i").forEach((d,j)=>d.classList.toggle("on",j===k))},true);
 loadCars();
 </script>
 </body>
