@@ -165,7 +165,7 @@ input,select,textarea{width:100%;font:16px system-ui;padding:12px;border-radius:
 .chk li::before{content:"✓";color:var(--rd);font-weight:800;margin-right:7px}
 .hq{margin:22px 0 0;padding:14px 18px;border-left:4px solid var(--ac);background:rgba(255,255,255,.06);border-radius:0 12px 12px 0;max-width:48ch}
 .hq p{margin:6px 0 4px;color:#fff;font-style:italic;font-size:17px;line-height:1.45}
-.hq cite{font-style:normal;color:#B9BFC5;font-size:13.5px}
+.hq p,.hq cite{transition:opacity .35s}.hq.fd p,.hq.fd cite{opacity:0}.hq cite{font-style:normal;color:#B9BFC5;font-size:13.5px}
 .wa{display:inline-block;margin-top:18px;color:#fff;font-weight:600;font-size:15px;text-decoration:underline;text-underline-offset:3px}
 .rv{position:relative;margin-top:24px}
 .revs{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 2px 10px;scroll-behavior:smooth}
@@ -192,7 +192,7 @@ input,select,textarea{width:100%;font:16px system-ui;padding:12px;border-radius:
 <p class="lead">Dites-nous le modèle, le budget et les options qui comptent. Nous cherchons pour vous.</p></div>
 <div class="smf hcard hf" id="sm"></div>
 <div class="hb"><ul class="chk"><li>Gratuit et sans engagement</li><li>Aucun paiement en ligne</li><li>Livraison à domicile possible</li><li>Un conseiller vous rappelle</li></ul>
-<blockquote class="hq"><span class="st" aria-label="5 étoiles sur 5">★★★★★</span><p>« …ils vont chercher VOTRE voiture et non une simple voiture à vendre. »</p><cite>Yann N., avis Google</cite></blockquote>
+<blockquote class="hq" id="hq"><span class="st" aria-label="5 étoiles sur 5">★★★★★</span><p id="hqt">« …ils vont chercher VOTRE voiture et non une simple voiture à vendre. »</p><cite id="hqc">Yann N., avis Google</cite></blockquote>
 <p class="fine">* Objectif visé, non garanti : le prix du marché est le prix moyen d’annonces de véhicules comparables (même modèle, même année, kilométrage proche) au moment de la recherche. Le résultat dépend des véhicules disponibles.</p>
 <a class="wa" href="https://wa.me/33627025083?text=Bonjour%2C%20je%20cherche%20un%20v%C3%A9hicule%20%3A%20" target="_blank" rel="noopener">Vous préférez nous écrire ? Contactez-nous sur WhatsApp</a></div>
 </div></div>
@@ -238,9 +238,13 @@ input,select,textarea{width:100%;font:16px system-ui;padding:12px;border-radius:
 
 <script>
 const REVIEWS=[
-{nom:"Sana M.",date:"Avis Google · visite en septembre",extrait:"j'ai remarqué tout de suite leur honnêteté et leur professionnalisme",texte:"Étant une femme seule, j'avais peur de me faire arnaquer. J'ai donc écumé un certain nombre de garages, sans me décider. En contactant leur garage pour une de leurs voitures, j'ai remarqué tout de suite leur honnêteté et leur professionnalisme (contrat et explications techniques très claires et transparentes), en plus d'un prix bien compétitif par rapport à leurs confrères. Au-delà de ces qualités rares, les 2 propriétaires sont d'une extrême gentillesse, très bienveillants et à l'écoute des éventuelles préoccupations. De plus, mon ancienne voiture étant hs, en attendant que la nouvelle soit prête, ils ont eu la générosité de me prêter un véhicule à titre gracieux. Mon achat s'est très bien déroulé et je suis repartie en totale confiance et sereine par rapport à mon choix. Merci infiniment pour tout! Je recommande les yeux fermés ! Moi qui suis très méfiante 😅"},
 {nom:"Thierry P.",date:"Avis Google · visite en août",extrait:"après avoir réalisé une recherche personnalisée j'ai reçu mon véhicule en peu de temps en état",texte:"Bon accueil, communication au top, je me suis senti en confiance dès le départ, après avoir réalisé une recherche personnalisée j'ai reçu mon véhicule en peu de temps en état, Je tiens à remercier toute l'équipe pour leur professionnalisme et mention spéciale à mon ami B."},
-{nom:"Yann N.",date:"Avis Google · visite en août",extrait:"ils vont chercher VOTRE voiture et non une simple voiture à vendre",texte:"Accueil agréable de toute l'équipe. Ils sont allé au delà de nos besoins en nous proposant le parfait vehicule familial. Malgré cet achat d'occasion, il ont remis le vehicule comme neuf. Se sont vraiment des professionnels passionnés et à l'écoute, ils vont chercher VOTRE voiture et non une simple voiture à vendre. Vous pouvez leurs faire confiance les yeux fermés."}
+{nom:"Hugo G.",date:"Avis Google · visite en août",extrait:"je suis très satisfait du résultat",texte:"J'ai fait réaliser une recherche personnalisée de véhicule et je dois dire que je suis très satisfait du résultat. L'équipe d'Eden Automobile a très bien compris ma demande ; elle a fait preuve d'honnêteté et d'adaptabilité. Quant au véhicule, j'en suis également très content : il est en excellent état et, surtout, très bien entretenu ! Je recommande vivement ce garage !"},
+{nom:"Jean A.",date:"Avis Google · visite en septembre",extrait:"une recherche personnalisée à la hauteur de mes attentes",texte:"Super garage, une recherche personnalisée à la hauteur de mes attentes, je recommande Eden Automobiles"},
+{nom:"Rania B.",date:"Avis Google · visite en juin",extrait:"la voiture m'a été livrée directement chez moi, prête à rouler",texte:"Je laisse rarement des avis Google, mais je tenais à partager mon expérience avec Eden Automobile. Étant naturellement prudente quand il s'agit d'acheter une voiture d'occasion, Eden Automobile m'a accompagnée tout au long de la démarche et m'a trouvé une vraie perle ! :D\n\nMerci à l'équipe pour son accompagnement, son professionnalisme et le respect de mes critères pendant la recherche. Habitant loin de la région, j'ai pu réaliser tout l'achat à distance, et la voiture m'a été livrée directement chez moi, prête à rouler.\n\nTout s'est déroulé sans accroc et exactement comme promis. Je n'hésiterais pas à refaire appel à cette équipe pour un futur achat !"},
+{nom:"Yann N.",date:"Avis Google · visite en août",extrait:"ils vont chercher VOTRE voiture et non une simple voiture à vendre",texte:"Accueil agréable de toute l'équipe. Ils sont allé au delà de nos besoins en nous proposant le parfait vehicule familial. Malgré cet achat d'occasion, il ont remis le vehicule comme neuf. Se sont vraiment des professionnels passionnés et à l'écoute, ils vont chercher VOTRE voiture et non une simple voiture à vendre. Vous pouvez leurs faire confiance les yeux fermés."},
+{nom:"Sana M.",date:"Avis Google · visite en septembre",extrait:"j'ai remarqué tout de suite leur honnêteté et leur professionnalisme",texte:"Étant une femme seule, j'avais peur de me faire arnaquer. J'ai donc écumé un certain nombre de garages, sans me décider. En contactant leur garage pour une de leurs voitures, j'ai remarqué tout de suite leur honnêteté et leur professionnalisme (contrat et explications techniques très claires et transparentes), en plus d'un prix bien compétitif par rapport à leurs confrères. Au-delà de ces qualités rares, les 2 propriétaires sont d'une extrême gentillesse, très bienveillants et à l'écoute des éventuelles préoccupations. De plus, mon ancienne voiture étant hs, en attendant que la nouvelle soit prête, ils ont eu la générosité de me prêter un véhicule à titre gracieux. Mon achat s'est très bien déroulé et je suis repartie en totale confiance et sereine par rapport à mon choix. Merci infiniment pour tout! Je recommande les yeux fermés ! Moi qui suis très méfiante 😅"},
+{nom:"Fatima S.",date:"Avis Google · visite en août",extrait:"je suis très satisfaite de leur service",texte:"Je suis très satisfaite de leur service."}
 ];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -250,6 +254,13 @@ const CONS='<label class="cs"><input type="checkbox" name="consent" required> J�
 let CARS=[],CUR=0;
 $("revs").innerHTML=REVIEWS.map((r,i)=>`<button type="button" class="rev" data-rev="${i}" aria-label="Lire l’avis complet de ${esc(r.nom)}"><span class="who"><span class="av">${esc(r.nom.charAt(0))}</span><span><strong>${esc(r.nom)}</strong><small>${esc(r.date)}</small></span></span><span class="st" aria-hidden="true">★★★★★</span><q>… ${esc(r.extrait)} …</q><u>Lire l’avis complet</u></button>`).join("");
 const rvFit=()=>{const r=$("revs");document.querySelectorAll(".rvb").forEach(x=>x.hidden=r.scrollWidth<=r.clientWidth+2)};addEventListener("resize",rvFit);addEventListener("load",rvFit);rvFit();
+(()=>{const r=$("revs"),rm=matchMedia("(prefers-reduced-motion:reduce)").matches;let hold=false,k=0;
+ ["mouseenter","focusin","touchstart","pointerdown"].forEach(v=>r.addEventListener(v,()=>hold=true,{passive:true}));
+ ["mouseleave","focusout"].forEach(v=>r.addEventListener(v,()=>hold=false));
+ if(rm)return;
+ setInterval(()=>{if(hold||document.hidden||r.scrollWidth<=r.clientWidth+2)return;const end=r.scrollLeft+r.clientWidth>=r.scrollWidth-4;r.scrollTo({left:end?0:r.scrollLeft+r.clientWidth*.6,behavior:"smooth"})},5000);
+ const hq=$("hq"),Q=REVIEWS.filter(x=>x.extrait);
+ setInterval(()=>{if(document.hidden)return;hq.classList.add("fd");setTimeout(()=>{k=(k+1)%Q.length;$("hqt").textContent="« …"+Q[k].extrait+" … »";$("hqc").textContent=Q[k].nom+", avis Google";hq.classList.remove("fd")},380)},6000)})();
 
 const norm=t=>String(t||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();
 const MULTI=["land rover","alfa romeo","aston martin","rolls royce","ds automobiles","mini cooper"];
@@ -453,7 +464,7 @@ document.addEventListener("click",e=>{
  else if(d.car!==undefined)openCar(+d.car,"call" in d);
  else if(d.buy!==undefined)openBuy(+d.buy);
  else if(d.ph!==undefined){const u=CARS[CUR].photos||[];$("gm").innerHTML=`<img src="${esc(u[+d.ph]||"")}" alt="">`;document.querySelectorAll(".tb").forEach(b=>b.classList.toggle("on",b===t))}
- else if(d.rev!==undefined){const r=REVIEWS[+d.rev];info(esc(r.nom)+' <span class="st" style="font-size:18px">★★★★★</span>',`<p class="mt">${esc(r.date)}</p><p>${esc(r.texte)}</p>`)}
+ else if(d.rev!==undefined){const r=REVIEWS[+d.rev];info(esc(r.nom)+' <span class="st" style="font-size:18px">★★★★★</span>',`<p class="mt">${esc(r.date)}</p>${esc(r.texte).split("\n\n").map(x=>`<p>${x}</p>`).join("")}`)}
  else if("map" in d)showMap();
  else if("legal" in d)LEGAL();else if("priv" in d)PRIV();
 });
