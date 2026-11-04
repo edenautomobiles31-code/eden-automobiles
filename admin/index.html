@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Administration – EDEN AUTOMOBILES</title>
+<style>
+:root{--tb:#2F8FB5;--sd:#27313B;--sd2:#1D252D;--sdt:#C9D3DB;--bg:#F2F5F7;--sf:#fff;--ink:#222B33;--mu:#6B7782;--ln:#DDE3E8;--bl:#2F8FB5;--or:#F5A100;--gr:#1E9E57;--rd:#D4202A;--wa:#B3322A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,"Segoe UI",sans-serif}
+h1,h2,h3{margin:0;line-height:1.2}
+button,input,select,textarea{font:inherit}
+.top{position:sticky;top:0;z-index:20;height:52px;background:var(--tb);color:#fff;display:flex;align-items:center;gap:14px;padding:0 14px}
+.top .lg{font-weight:800;font-size:19px;letter-spacing:.2px;min-width:190px;white-space:nowrap}
+.top .lg i{font-style:normal;color:#FFD9D6}
+.burger{background:none;border:0;color:#fff;font-size:22px;cursor:pointer;padding:6px 10px}
+.top .al{flex:1;font-size:14px}.top .al button{background:none;border:0;color:#fff;cursor:pointer;text-decoration:underline}
+.top .us{font-size:14px;white-space:nowrap}
+.top .out{background:rgba(255,255,255,.18);border:0;color:#fff;border-radius:6px;padding:7px 12px;cursor:pointer}
+.lay{display:flex;min-height:calc(100vh - 52px)}
+aside{width:224px;flex:0 0 224px;background:var(--sd);color:var(--sdt)}
+aside .g>button,aside .sub button{display:flex;width:100%;align-items:center;gap:10px;background:none;border:0;color:inherit;text-align:left;padding:12px 16px;cursor:pointer;font-size:15px}
+aside .g>button:hover,aside .sub button:hover{background:var(--sd2)}
+aside .on{background:var(--sd2)!important;color:#fff;box-shadow:inset 3px 0 0 var(--bl)}
+aside .sub{background:#212A33}aside .sub button{padding:9px 16px 9px 44px;font-size:14px}
+aside .nb{margin-left:auto;background:var(--or);color:#1b1608;border-radius:99px;padding:0 8px;font-size:12px;font-weight:700}
+aside .ic{width:20px;text-align:center}
+main{flex:1;min-width:0;padding:18px 18px 70px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.bar h2{font-size:21px}
+.tools{background:var(--sf);border:1px solid var(--bl);border-radius:4px;padding:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.tools .sp{margin-left:auto}
+.btn{border:0;cursor:pointer;border-radius:4px;padding:8px 14px;font-weight:600;background:var(--bl);color:#fff;white-space:nowrap}
+.btn.gn{background:var(--gr)}.btn.or{background:var(--or);color:#fff}.btn.gy{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ln)}.btn.rd{background:#fff;color:var(--wa);box-shadow:inset 0 0 0 1px var(--ln)}
+.btn.sm{padding:5px 10px;font-size:13px}.btn:disabled{opacity:.5;cursor:default}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:4px}
+.tbw{overflow-x:auto;border-top:3px solid var(--bl);background:var(--sf);border-radius:3px}
+table{border-collapse:collapse;width:100%;min-width:760px}
+th{color:var(--bl);font-size:13px;text-align:left;padding:12px 10px;white-space:nowrap}
+td{padding:12px 10px;border-top:1px solid var(--ln);vertical-align:middle}
+tr:hover td{background:#FAFCFD}
+.th{width:64px;height:48px;border-radius:5px;background:var(--bg);display:grid;place-items:center;overflow:hidden;color:var(--mu);font-size:11px}.th img{width:100%;height:100%;object-fit:cover}
+.np{display:inline-block;background:#F0F3F5;border:1px solid var(--ln);border-radius:4px;padding:5px 9px;font-weight:600;white-space:nowrap}
+.bd{display:inline-block;border-radius:99px;padding:2px 10px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.b-gr{background:#E6EAED;color:#4a5560}.b-ok{background:#DDF3E6;color:#14733F}.b-or{background:#FDEBC8;color:#8A5A00}.b-bl{background:#D9ECF5;color:#1D6E8F}.b-gy{background:#EEE;color:#666}.b-rd{background:#FBE0DE;color:#9A2B24}
+.mu{color:var(--mu);font-size:13.5px}
+.pub{font-size:12px;color:var(--gr);font-weight:700}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+select,input:not([type=checkbox]),textarea{width:100%;padding:8px 10px;border:1px solid var(--ln);border-radius:4px;background:#fff;color:var(--ink)}
+select.in{width:auto;padding:5px 8px}
+input[type=checkbox]{width:auto}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:18px}
+.stat{background:var(--sf);border:1px solid var(--ln);border-left:4px solid var(--bl);border-radius:4px;padding:14px;cursor:pointer;text-align:left}
+.stat b{display:block;font-size:28px;line-height:1.1}.stat span{color:var(--mu);font-size:13.5px}
+.empty{border:2px dashed var(--ln);border-radius:6px;padding:28px;text-align:center;color:var(--mu);background:var(--sf)}
+.note{background:#FFF8E6;border-left:4px solid var(--or);padding:10px 14px;border-radius:4px;margin:12px 0}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid var(--ln);background:#fff;border-radius:99px;padding:4px 12px;cursor:pointer}.chip.on{border-color:var(--bl);color:var(--bl);font-weight:700}
+.rq{background:var(--sf);border:1px solid var(--ln);border-radius:4px;padding:14px;margin-bottom:12px}
+.rq dl{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;margin:10px 0}.rq dt{color:var(--mu)}.rq dd{margin:0;overflow-wrap:anywhere}
+.chk{display:flex;gap:8px;align-items:center;font-weight:600}
+dialog{border:0;border-radius:8px;width:min(780px,calc(100% - 16px));max-height:calc(100% - 16px);background:var(--sf);color:var(--ink);padding:0}
+dialog::backdrop{background:rgba(10,14,16,.55)}
+.dh{padding:16px 20px;border-bottom:1px solid var(--ln);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--sf);z-index:2}
+.db{padding:6px 20px 20px}
+.db h3{font-size:15px;color:var(--bl);margin:20px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--ln)}
+.db label{display:block;font-weight:600;font-size:13.5px;margin:10px 0 4px}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.phs{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0}.pt{position:relative;width:70px;height:54px}.pt img{width:100%;height:100%;object-fit:cover;border-radius:5px}
+.pt button{position:absolute;top:-7px;right:-7px;width:22px;height:22px;border-radius:50%;border:0;background:var(--ink);color:#fff;cursor:pointer}
+.login{max-width:380px;margin:12vh auto;padding:0 16px}.login label{display:block;font-weight:600;font-size:14px;margin:12px 0 4px}
+.sc{display:none}.dopts{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:4px 12px}.dopts .chk{font-weight:400;margin:0}
+@media(max-width:860px){aside{position:fixed;top:52px;bottom:0;left:0;z-index:30;transform:translateX(-100%);transition:transform .2s;overflow-y:auto}aside.open{transform:none}.sc.open{display:block;position:fixed;inset:52px 0 0;background:rgba(0,0,0,.4);z-index:25}.top .lg{min-width:0;flex:1}.top .us,.top .al,.top .out[data-refresh]{display:none}.r2,.r3{grid-template-columns:1fr}main{padding:14px 10px 70px}}
+@media print{.top,aside,.tools,.noprint,.acts{display:none!important}main{padding:0}table{min-width:0;font-size:11px}.tbw{border:0}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<dialog id="dlg"></dialog>
+<dialog id="dlg2"></dialog>
+<script src="/vendor/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=n=>n==null||n===""?"":Number(n).toLocaleString("fr-FR");
+const eur=n=>n==null||n===""?"":Number(n).toLocaleString("fr-FR",{minimumFractionDigits:0,maximumFractionDigits:2})+" € TTC";
+const dFr=t=>t?new Date(t.length===10?t+"T12:00:00":t).toLocaleDateString("fr-FR",{day:"numeric",month:"short",year:"numeric"}):"";
+const dtFr=t=>t?new Date(t).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short"}):"";
+const today=()=>new Date().toISOString().slice(0,10);
+const ST={preparation:["En préparation","b-gr"],en_vente:["En vente","b-ok"],reserve:["Réservé","b-or"],vendu:["Vendu","b-bl"],sorti:["Sorti du parc","b-gy"]};
+const A2={en_vente:"disponible",reserve:"reserve",vendu:"vendu",sorti:"vendu"};
+const FROM_A={disponible:"en_vente",reserve:"reserve",vendu:"vendu"};
+const PAY=["Virement","Chèque","Espèces","Carte bancaire","Financement","Dépôt-vente","Autre"];
+const ENTREE={achat:"Achat",depot_vente:"Dépôt-vente",reprise:"Reprise"};
+const DT={recherche:"Recherches personnalisées",estimation:"Estimations",reservation:"Réservations",rappel:"Demandes de rappel"};
+const DS={nouvelle:"Nouvelle",rappelee:"Rappelée",traitee:"Traitée"};
+const nomV=v=>[v.marque,v.modele,v.version].filter(Boolean).join(" ")||"Véhicule sans nom";
+const nomC=c=>!c?"":c.societe?c.societe:[c.prenom,c.nom].filter(Boolean).join(" ");
+let sb,S={clients:[],parc:[],ann:[],dem:[],docs:[]},view="dash",flt="all",qv="",pend=null,timer=null,ph=[],editing=null,navOpen=false;
+const cl=id=>S.clients.find(c=>c.id===id);
+const opt=(list,v,blank)=>(blank?`<option value="">${blank}</option>`:"")+list.map(x=>{const [k,l]=Array.isArray(x)?x:[x,x];return `<option value="${esc(k)}" ${String(k)===String(v??"")?"selected":""}>${esc(l)}</option>`}).join("");
+
+/* ---------- connexion ---------- */
+async function init(){
+ try{const c=await (await fetch("/api/config")).json();if(!c.url||!c.anonKey)throw 0;sb=supabase.createClient(c.url,c.anonKey)}
+ catch(e){$("app").innerHTML=`<div class="login"><p class="note">Configuration manquante : vérifiez SUPABASE_URL et SUPABASE_ANON_KEY dans Cloudflare.</p></div>`;return}
+ const {data}=await sb.auth.getSession();data.session?start():login();
+}
+function login(msg){
+ clearInterval(timer);
+ $("app").innerHTML=`<form id="lf" class="login"><h1>Administration</h1><p class="mu">EDEN AUTOMOBILES</p>${msg?`<p class="note">${esc(msg)}</p>`:""}<label>Email<input id="em" type="email" autocomplete="username" required></label><label>Mot de passe<input id="pw" type="password" autocomplete="current-password" required></label><p><button class="btn">Se connecter</button></p></form>`;
+ $("lf").onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:$("em").value.trim(),password:$("pw").value});error?login("Identifiants incorrects."):start()};
+}
+async function start(){await load(true);timer=setInterval(()=>load(false),60000)}
+async function load(force){
+ const r=await Promise.all([sb.from("clients").select("*").order("nom"),sb.from("parc").select("*").order("numero_police",{ascending:false}),sb.from("annonces").select("*").order("created_at"),sb.from("demandes").select("*").order("created_at",{ascending:false}),sb.from("documents").select("*").order("created_at",{ascending:false})]);
+ if(r.some(x=>x.error)){const m=(r.find(x=>x.error).error.message||"");login(/relation|does not exist|schema cache/i.test(m)?"Tables manquantes : exécutez les scripts eden-admin-parc.sql puis eden-admin-documents.sql dans Supabase.":"Session expirée, reconnectez-vous.");return}
+ [S.clients,S.parc,S.ann,S.dem,S.docs]=r.map(x=>x.data);
+ if(force||(!document.querySelector("dialog[open]")&&!["TEXTAREA","INPUT"].includes(document.activeElement.tagName)))render();
+}
+
+/* ---------- structure ---------- */
+const newDem=t=>S.dem.filter(d=>(!t||d.type===t)&&d.statut==="nouvelle").length;
+const cnt=s=>S.parc.filter(v=>v.statut===s).length;
+function render(){
+ const sel=(k)=>view===k?"on":"";
+ const nd=newDem();
+ const vehSub=[["veh:all","Tous les véhicules",S.parc.length],["veh:preparation","En préparation",cnt("preparation")],["veh:en_vente","En vente",cnt("en_vente")],["veh:reserve","Réservés",cnt("reserve")],["veh:vendu","Vendus",cnt("vendu")],["veh:sorti","Sortis du parc",cnt("sorti")]];
+ const demSub=Object.keys(DT).map(k=>["dem:"+k,DT[k],newDem(k)]);
+ const grp=(k,ic,l,sub)=>`<div class="g"><button class="${view.startsWith(k)?"on":""}" data-go="${sub[0][0]}"><span class="ic">${ic}</span>${l}</button>${view.startsWith(k)?`<div class="sub">${sub.map(([v,t,n])=>`<button class="${view===v?"on":""}" data-go="${v}">${t}${n?`<span class="nb">${n}</span>`:""}</button>`).join("")}</div>`:""}</div>`;
+ $("app").innerHTML=`<div class="top"><button class="burger" data-nav aria-label="Menu">☰</button><span class="lg">EDEN<i>.</i> Admin</span>
+ <span class="al">${nd?`<button data-go="dem:${Object.keys(DT).find(k=>newDem(k))}">Vous avez ${nd} demande${nd>1?"s":""} à traiter</button>`:"Aucune demande à traiter"}</span>
+ <span class="us">accueil.edenautomobiles@gmail.com</span><button class="out" data-refresh>Actualiser</button><button class="out" data-out>Déconnexion</button></div>
+ <div class="lay"><aside class="${navOpen?"open":""}" id="sd"><div class="g"><button class="${sel("dash")}" data-go="dash"><span class="ic">🏠</span>Tableau de bord</button></div>
+ ${grp("veh","🚗","Véhicules",vehSub)}
+ <div class="g"><button class="${sel("police")}" data-go="police"><span class="ic">🏛</span>Livre de police</button></div>
+ <div class="g"><button class="${sel("clients")}" data-go="clients"><span class="ic">👥</span>Clients</button></div>
+ <div class="g"><button class="${sel("docs")}" data-go="docs"><span class="ic">📄</span>Documents</button></div>
+ ${grp("dem","🔔","Demandes du site",demSub)}
+ <div class="g"><button data-site><span class="ic">🌐</span>Voir le site</button></div></aside><div class="sc ${navOpen?"open":""}" data-nav></div>
+ <main id="mn">${page()}</main></div>`;
+}
+function page(){
+ if(view==="dash")return pDash();
+ if(view.startsWith("veh:"))return pVeh(view.slice(4));
+ if(view==="police")return pPolice();
+ if(view==="clients")return pClients();
+ if(view==="docs")return pDocs();
+ if(view.startsWith("dem:"))return pDem(view.slice(4));
+ return "";
+}
+
+/* ---------- tableau de bord ---------- */
+function pDash(){
+ const mois=today().slice(0,7),vm=S.parc.filter(v=>v.statut==="vendu"&&(v.date_sortie||"").startsWith(mois));
+ const marge=vm.reduce((s,v)=>s+((+v.prix_vente||0)-(+v.prix_achat||0)),0);
+ const stock=S.parc.filter(v=>["en_vente","reserve"].includes(v.statut)).reduce((s,v)=>s+(v.prix_affiche||0),0);
+ const st=(n,l,go)=>`<button class="stat" data-go="${go}"><b>${n}</b><span>${l}</span></button>`;
+ const last=S.dem.filter(d=>d.statut==="nouvelle").slice(0,6);
+ const orph=S.ann.filter(a=>!S.parc.some(v=>v.annonce_id===a.id));
+ return `<div class="bar"><h2>Tableau de bord</h2></div>
+ ${orph.length?`<div class="note">${orph.length} annonce${orph.length>1?"s":""} du site ne figure${orph.length>1?"nt":""} pas encore dans votre parc. <button class="btn or sm" data-import>Les importer dans le parc</button></div>`:""}
+ <div class="stats">${st(cnt("en_vente"),"Véhicules en vente","veh:en_vente")}${st(cnt("reserve"),"Réservés","veh:reserve")}${st(cnt("preparation"),"En préparation","veh:preparation")}${st(vm.length,"Vendus ce mois-ci","veh:vendu")}${st(newDem(),"Demandes à traiter",newDem()?"dem:"+Object.keys(DT).find(k=>newDem(k)):"dem:recherche")}</div>
+ <div class="stats"><div class="stat" style="cursor:default"><b>${fmt(stock)} €</b><span>Valeur du stock affiché (en vente + réservés)</span></div><div class="stat" style="cursor:default"><b>${fmt(Math.round(marge))} €</b><span>Marge brute des ventes du mois (prix de vente − prix d’achat, hors frais)</span></div></div>
+ <h3 style="margin:6px 0 10px">Dernières demandes à traiter</h3>
+ ${last.length?`<div class="tbw"><table><tbody>${last.map(d=>`<tr><td>${dtFr(d.created_at)}</td><td><span class="bd b-bl">${esc(DT[d.type]||d.type)}</span></td><td><b>${esc(d.nom)}</b></td><td>${esc(d.telephone)}</td><td>${esc(d.vehicule||d.marque_modele||"")}</td><td><button class="btn sm" data-go="dem:${d.type}">Ouvrir</button></td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">Aucune demande en attente.</div>`}`;
+}
+
+/* ---------- véhicules ---------- */
+function vehRows(f){
+ let l=f==="all"?S.parc:S.parc.filter(v=>v.statut===f);
+ const t=qv.trim().toLowerCase();
+ if(t)l=l.filter(v=>[nomV(v),v.immatriculation,v.vin,v.numero_police].join(" ").toLowerCase().includes(t));
+ return l;
+}
+function pVeh(f){
+ const l=vehRows(f),title=f==="all"?"Tous les véhicules":ST[f][0];
+ const rows=l.map(v=>{const p=(v.photos||[])[0];return `<tr><td><span class="np">${v.numero_police}</span></td><td><div class="th">${p?`<img src="${esc(p)}" alt="">`:"Photo"}</div></td>
+ <td><b>${esc(nomV(v))}</b>${v.annonce_id?`<br><span class="pub">● Publié sur le site</span>`:""}</td><td>${esc(v.immatriculation||"")}</td>
+ <td>${[v.annee,v.km!=null?fmt(v.km)+" km":"",v.energie,v.boite].filter(Boolean).map(esc).join(" · ")}</td><td><b>${v.prix_affiche!=null?fmt(v.prix_affiche)+" €":"–"}</b></td>
+ <td><select class="in" data-vst="${v.id}" aria-label="Statut">${opt(Object.entries(ST).map(([k,x])=>[k,x[0]]),v.statut)}</select></td>
+ <td><div class="acts"><button class="btn or sm" data-vedit="${v.id}">Modifier</button><button class="btn gy sm" data-vdoc="${v.id}">Documents</button>${v.annonce_id?`<button class="btn gy sm" data-unpub="${v.id}">Retirer du site</button>`:`<button class="btn gn sm" data-pub="${v.id}">Ajouter à mes annonces</button>`}${["vendu","sorti"].includes(v.statut)?"":`<button class="btn gy sm" data-sortie="${v.id}">Sortie</button>`}</div></td></tr>`}).join("");
+ return `<div class="bar"><h2>${title} <span class="mu">(${l.length})</span></h2></div>
+ <div class="tools"><button class="btn gn" data-vnew>＋ Ajouter un véhicule</button><div class="sp"><input id="qv" type="search" placeholder="Rechercher (modèle, plaque, n°…)" value="${esc(qv)}" style="min-width:230px"></div></div>
+ ${l.length?`<div class="tbw"><table><thead><tr><th>N°&nbsp;police</th><th></th><th>Véhicule</th><th>Immat.</th><th>Détails</th><th>Prix affiché</th><th>Statut</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table></div>`:`<div class="empty">Aucun véhicule ici.${f==="all"?" Ajoutez-en un avec « Ajouter un véhicule ».":""}</div>`}`;
+}
+const cs=(id,v)=>`<select id="${id}">${opt(S.clients.map(c=>[c.id,nomC(c)+(c.ville?" · "+c.ville:"")]),v,"— Aucun —")}<option value="__new">＋ Nouveau client…</option></select>`;
+const nv=id=>{const v=$(id).value.trim();return v===""?null:+v};
+const tv=id=>{const v=$(id).value.trim();return v===""?null:v};
+function vehForm(v,pre){
+ const a=v||pre||{};editing=v?v.id:null;ph=(a.photos||[]).slice();
+ $("dlg").innerHTML=`<div class="dh"><h2>${v?`Véhicule n° ${v.numero_police}`:"Nouveau véhicule"}</h2><button class="btn gy sm" type="button" data-cancel>Fermer</button></div><form class="db" id="fv">
+ <h3>Identification</h3>
+ <div class="r3"><div><label>Marque</label><input id="v_marque" value="${esc(a.marque)}"></div><div><label>Modèle</label><input id="v_modele" value="${esc(a.modele)}"></div><div><label>Version</label><input id="v_version" value="${esc(a.version)}" placeholder="1.5 BlueHDi 102 ch"></div></div>
+ <div class="r3"><div><label>Immatriculation</label><input id="v_immat" value="${esc(a.immatriculation)}" placeholder="AB-123-CD"></div><div><label>N° de série (VIN)</label><input id="v_vin" value="${esc(a.vin)}"></div><div><label>Couleur</label><input id="v_couleur" value="${esc(a.couleur)}"></div></div>
+ <div class="r3"><div><label>Année</label><input id="v_annee" type="number" min="1950" max="2100" value="${esc(a.annee)}"></div><div><label>Kilométrage</label><input id="v_km" type="number" min="0" value="${esc(a.km)}"></div>
+ <div><label>Énergie</label><select id="v_energie">${opt(["Essence","Diesel","Hybride","Électrique","GPL"],a.energie,"—")}</select></div></div>
+ <div class="r3"><div><label>Boîte</label><select id="v_boite">${opt(["Manuelle","Automatique"],a.boite,"—")}</select></div></div>
+ <h3>Entrée au parc (achat)</h3>
+ <div class="r3"><div><label>Date d’entrée</label><input id="v_dentree" type="date" value="${esc(a.date_entree||today())}"></div><div><label>Type d’entrée</label><select id="v_tentree">${opt(Object.entries(ENTREE),a.type_entree||"achat")}</select></div><div><label>Statut</label><select id="v_statut">${opt(Object.entries(ST).map(([k,x])=>[k,x[0]]),a.statut||"preparation")}</select></div></div>
+ <div class="r3"><div><label>Vendeur (client)</label>${cs("v_vendeur",a.vendeur_id)}</div><div><label>Prix d’achat (€ TTC)</label><input id="v_pachat" type="number" step="0.01" min="0" value="${esc(a.prix_achat)}"></div><div><label>Moyen de paiement</label><select id="v_mpa">${opt(PAY,a.moyen_paiement_achat,"—")}</select></div></div>
+ <h3>Vente et sortie</h3>
+ <div class="r3"><div><label>Prix affiché sur le site (€ TTC)</label><input id="v_paff" type="number" min="0" value="${esc(a.prix_affiche)}"></div><div><label>Acheteur (client)</label>${cs("v_acheteur",a.acheteur_id)}</div><div><label>Prix de vente final (€ TTC)</label><input id="v_pvente" type="number" step="0.01" min="0" value="${esc(a.prix_vente)}"></div></div>
+ <div class="r3"><div><label>Moyen de paiement</label><select id="v_mpv">${opt(PAY,a.moyen_paiement_vente,"—")}</select></div><div><label>Date de sortie</label><input id="v_dsortie" type="date" value="${esc(a.date_sortie)}"></div></div>
+ <h3>Fiche du site</h3>
+ <label>Options connues (cochez celles du véhicule)</label><div class="dopts">${OPTS_C.map(o=>`<label class="chk"><input type="checkbox" class="dopt" value="${esc(o)}" ${(a.equipements||[]).includes(o)?"checked":""}> ${esc(o)}</label>`).join("")}</div>
+ <div class="acts" style="margin:8px 0"><label class="chk"><input type="checkbox" id="d_reprise" checked> Reprise possible</label><label class="chk"><input type="checkbox" id="d_livr" checked> Livraison à domicile possible</label><button type="button" class="btn or sm" data-gendesc>Générer la description</button></div>
+ <label>Description (modifiable : complétez avec quelques lignes)</label><textarea id="v_desc" rows="6">${esc(a.description)}</textarea>
+ <label>Équipements (un par ligne)</label><textarea id="v_equip" rows="3">${esc((a.equipements||[]).join("\n"))}</textarea>
+ <label>Photos (20 maximum, la première est la photo principale)</label><div class="phs" id="phs">${phHtml()}</div><input id="v_files" type="file" accept="image/*" multiple>
+ <label class="chk" style="margin-top:12px"><input type="checkbox" id="v_pub" ${(v&&v.annonce_id)?"checked":""}> Publier ce véhicule sur le site (impossible tant qu’il est « En préparation »)</label>
+ <label>Note interne</label><textarea id="v_note" rows="2">${esc(a.note)}</textarea>
+ <p id="fm" class="mu"></p><div class="acts"><button class="btn gn" id="fs">Enregistrer</button><button class="btn gy" type="button" data-cancel>Annuler</button></div></form>`;
+ ["v_vendeur","v_acheteur"].forEach(id=>$(id).onchange=e=>{if(e.target.value==="__new"){e.target.value="";cliForm(null,c=>{e.target.insertAdjacentHTML("afterbegin",`<option value="${c.id}">${esc(nomC(c))}</option>`);e.target.value=c.id})}});
+ $("fv").onsubmit=saveVeh;$("dlg").showModal();
+}
+const phHtml=()=>ph.map((u,k)=>`<div class="pt"><img src="${esc(u)}" alt=""><button type="button" data-rph="${k}" aria-label="Retirer la photo ${k+1}">×</button></div>`).join("");
+async function shrink(f){
+ const i=await createImageBitmap(f),s=Math.min(1,1600/Math.max(i.width,i.height)),c=document.createElement("canvas");
+ c.width=Math.round(i.width*s);c.height=Math.round(i.height*s);c.getContext("2d").drawImage(i,0,0,c.width,c.height);
+ return new Promise(r=>c.toBlob(r,"image/jpeg",.82));
+}
+const annoncePayload=v=>({titre:nomV(v),prix:v.prix_affiche||0,annee:v.annee||null,km:v.km??null,energie:v.energie||null,boite:v.boite||null,equipements:v.equipements||[],description:v.description||null,photos:v.photos||[],statut:A2[v.statut]||"disponible"});
+/* Aligne l'annonce du site sur la fiche du parc (créée, mise à jour ou retirée). */
+async function syncAnnonce(v,wantPub){
+ if(v.statut==="preparation"||wantPub===false){
+  if(v.annonce_id){const r=await sb.from("annonces").delete().eq("id",v.annonce_id);if(r.error)throw r.error;const u=await sb.from("parc").update({annonce_id:null}).eq("id",v.id);if(u.error)throw u.error}
+  return;
+ }
+ if(v.annonce_id){const r=await sb.from("annonces").update(annoncePayload(v)).eq("id",v.annonce_id);if(r.error)throw r.error;return}
+ if(wantPub){
+  if(v.prix_affiche==null)throw new Error("Indiquez le prix affiché pour publier ce véhicule.");
+  const r=await sb.from("annonces").insert(annoncePayload(v)).select("id").single();if(r.error)throw r.error;
+  const u=await sb.from("parc").update({annonce_id:r.data.id}).eq("id",v.id);if(u.error)throw u.error;
+ }
+}
+async function saveVeh(e){
+ e.preventDefault();$("fs").disabled=true;$("fm").textContent="Enregistrement…";
+ try{
+  const files=[...$("v_files").files].slice(0,Math.max(0,20-ph.length));
+  for(const f of files){const b=await shrink(f),p=crypto.randomUUID()+".jpg";
+   const u=await sb.storage.from("photos").upload(p,b,{contentType:"image/jpeg"});if(u.error)throw u.error;
+   ph.push(sb.storage.from("photos").getPublicUrl(p).data.publicUrl)}
+  const o={marque:tv("v_marque"),modele:tv("v_modele"),version:tv("v_version"),immatriculation:tv("v_immat"),vin:tv("v_vin"),couleur:tv("v_couleur"),annee:nv("v_annee"),km:nv("v_km"),energie:tv("v_energie"),boite:tv("v_boite"),
+   date_entree:$("v_dentree").value||today(),type_entree:$("v_tentree").value,statut:$("v_statut").value,vendeur_id:tv("v_vendeur"),prix_achat:nv("v_pachat"),moyen_paiement_achat:tv("v_mpa"),
+   prix_affiche:nv("v_paff"),acheteur_id:tv("v_acheteur"),prix_vente:nv("v_pvente"),moyen_paiement_vente:tv("v_mpv"),date_sortie:tv("v_dsortie"),
+   description:tv("v_desc"),equipements:$("v_equip").value.split("\n").map(s=>s.trim()).filter(Boolean),photos:ph,note:tv("v_note")};
+  if(!o.marque&&!o.modele)throw new Error("Indiquez au moins la marque ou le modèle.");
+  if(["vendu","sorti"].includes(o.statut)&&!o.date_sortie)o.date_sortie=today();
+  const r=editing?await sb.from("parc").update(o).eq("id",editing).select("*").single():await sb.from("parc").insert(o).select("*").single();
+  if(r.error)throw r.error;
+  editing=r.data.id;
+  const wantPub=$("v_pub").checked;
+  if(wantPub&&o.statut==="preparation")throw new Error("Véhicule enregistré, mais il ne peut pas être publié tant qu’il est « En préparation ». Passez-le « En vente ».");
+  await syncAnnonce(r.data,wantPub);
+  $("dlg").close();await load(true);
+ }catch(err){$("fm").textContent="Échec : "+(err.message||"erreur");$("fs").disabled=false}
+}
+async function setStatut(id,s){
+ const v=S.parc.find(x=>x.id===id);if(!v)return;
+ const o={statut:s};if(["vendu","sorti"].includes(s)&&!v.date_sortie)o.date_sortie=today();
+ const r=await sb.from("parc").update(o).eq("id",id).select("*").single();
+ if(r.error){alert("Échec : "+r.error.message);return load(true)}
+ try{await syncAnnonce(r.data,v.annonce_id?true:undefined)}catch(e){alert("Statut enregistré, mais le site n’a pas été mis à jour : "+e.message)}
+ await load(true);
+}
+async function publish(id,on){
+ const v=S.parc.find(x=>x.id===id);if(!v)return;
+ try{
+  if(on&&v.statut==="preparation"){if(!confirm("Ce véhicule est « En préparation ». Le passer « En vente » et le publier ?"))return;
+   const r=await sb.from("parc").update({statut:"en_vente"}).eq("id",id).select("*").single();if(r.error)throw r.error;await syncAnnonce(r.data,true)}
+  else await syncAnnonce(v,on);
+ }catch(e){alert("Échec : "+e.message)}
+ await load(true);
+}
+function sortieForm(id){
+ const v=S.parc.find(x=>x.id===id);
+ $("dlg").innerHTML=`<div class="dh"><h2>Sortie : ${esc(nomV(v))}</h2><button class="btn gy sm" type="button" data-cancel>Fermer</button></div><form class="db" id="fo">
+ <label>Acheteur (client)</label>${cs("o_ach",v.acheteur_id)}
+ <div class="r3"><div><label>Prix de vente (€ TTC)</label><input id="o_pv" type="number" step="0.01" min="0" value="${esc(v.prix_vente??v.prix_affiche)}" required></div><div><label>Moyen de paiement</label><select id="o_mp">${opt(PAY,v.moyen_paiement_vente,"—")}</select></div><div><label>Date de sortie</label><input id="o_ds" type="date" value="${esc(v.date_sortie||today())}" required></div></div>
+ <label>Type de sortie</label><select id="o_st"><option value="vendu">Vendu</option><option value="sorti">Sorti du parc (sans vente)</option></select>
+ <p id="fm" class="mu"></p><div class="acts"><button class="btn gn" id="fs">Enregistrer la sortie</button><button class="btn gy" type="button" data-cancel>Annuler</button></div></form>`;
+ $("o_ach").onchange=e=>{if(e.target.value==="__new"){e.target.value="";cliForm(null,c=>{e.target.insertAdjacentHTML("afterbegin",`<option value="${c.id}">${esc(nomC(c))}</option>`);e.target.value=c.id})}};
+ $("fo").onsubmit=async e=>{e.preventDefault();$("fs").disabled=true;
+  try{const r=await sb.from("parc").update({acheteur_id:tv("o_ach"),prix_vente:nv("o_pv"),moyen_paiement_vente:tv("o_mp"),date_sortie:$("o_ds").value,statut:$("o_st").value}).eq("id",id).select("*").single();
+   if(r.error)throw r.error;await syncAnnonce(r.data,v.annonce_id?true:undefined);$("dlg").close();await load(true)}
+  catch(err){$("fm").textContent="Échec : "+err.message;$("fs").disabled=false}};
+ $("dlg").showModal();
+}
+async function importAnnonces(){
+ const orph=S.ann.filter(a=>!S.parc.some(v=>v.annonce_id===a.id));
+ if(!orph.length||!confirm(`Créer ${orph.length} fiche(s) dans le parc à partir des annonces du site ?`))return;
+ for(const a of orph){
+  const w=String(a.titre||"").trim().split(/\s+/);
+  const r=await sb.from("parc").insert({marque:w[0]||null,modele:w.slice(1).join(" ")||null,annee:a.annee,km:a.km,energie:a.energie,boite:a.boite,statut:FROM_A[a.statut]||"en_vente",prix_affiche:a.prix,description:a.description,equipements:a.equipements||[],photos:a.photos||[],annonce_id:a.id,date_entree:(a.created_at||today()).slice(0,10)});
+  if(r.error){alert("Échec : "+r.error.message);break}
+ }
+ await load(true);
+}
+
+/* ---------- livre de police ---------- */
+function pPolice(){
+ const l=vehRows("all");
+ const rows=l.map(v=>`<tr><td><span class="np">${v.numero_police}</span></td><td>${dFr(v.date_entree)}</td><td><b>${esc(nomV(v))}</b><br><span class="mu">${esc(ENTREE[v.type_entree]||"")}${v.vin?" · VIN "+esc(v.vin):""}</span></td><td>${esc(v.immatriculation||"")}</td>
+ <td>${esc(nomC(cl(v.vendeur_id)))}</td><td>${v.prix_achat!=null?eur(v.prix_achat):""}</td><td>${esc(v.moyen_paiement_achat||"")}</td>
+ <td>${esc(nomC(cl(v.acheteur_id)))}</td><td>${v.prix_vente!=null?eur(v.prix_vente):""}</td><td>${esc(v.moyen_paiement_vente||"")}</td><td>${dFr(v.date_sortie)}</td>
+ <td><div class="acts"><button class="btn or sm" data-vedit="${v.id}">Modifier</button>${["vendu","sorti"].includes(v.statut)?`<span class="mu">Sortie enregistrée</span>`:`<button class="btn gy sm" data-sortie="${v.id}">Sortie</button>`}</div></td></tr>`).join("");
+ return `<div class="bar"><h2>Livre de police</h2></div>
+ <div class="tools"><button class="btn gn" data-vnew>＋ Ajouter une entrée</button><button class="btn" data-csv>Exporter en CSV</button><button class="btn gy" data-print>Imprimer</button><div class="sp"><input id="qv" type="search" placeholder="Rechercher…" value="${esc(qv)}" style="min-width:200px"></div></div>
+ ${l.length?`<div class="tbw"><table style="min-width:1200px"><thead><tr><th>N°<br>police</th><th>Date d’entrée</th><th>Véhicule</th><th>Immat.</th><th>Vendeur (achat)</th><th>Montant achat</th><th>Paiement</th><th>Acheteur (vente)</th><th>Montant vente</th><th>Paiement</th><th>Date de sortie</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table></div>`:`<div class="empty">Le livre de police est vide. Chaque véhicule ajouté au parc y figure automatiquement.</div>`}
+ <p class="mu noprint" style="margin-top:12px">Les données sont enregistrées dans votre base Supabase privée. Vérifiez avec votre expert-comptable que ce registre correspond bien à vos obligations légales avant d’abandonner un autre registre.</p>`;
+}
+function csv(){
+ const q=x=>`"${String(x??"").replace(/"/g,'""')}"`;
+ const head=["N° police","Date d'entrée","Type d'entrée","Marque","Modèle","Version","Immatriculation","VIN","Vendeur","Adresse vendeur","Pièce d'identité vendeur","Prix d'achat","Paiement achat","Acheteur","Adresse acheteur","Prix de vente","Paiement vente","Date de sortie","Statut"];
+ const adr=c=>c?[c.adresse,c.code_postal,c.ville].filter(Boolean).join(" "):"";
+ const lines=[...S.parc].sort((a,b)=>a.numero_police-b.numero_police).map(v=>{const s=cl(v.vendeur_id),a=cl(v.acheteur_id);return [v.numero_police,v.date_entree,ENTREE[v.type_entree],v.marque,v.modele,v.version,v.immatriculation,v.vin,nomC(s),adr(s),s&&s.piece_identite,v.prix_achat,v.moyen_paiement_achat,nomC(a),adr(a),v.prix_vente,v.moyen_paiement_vente,v.date_sortie,ST[v.statut][0]].map(q).join(";")});
+ const b=new Blob(["﻿"+[head.map(q).join(";"),...lines].join("\r\n")],{type:"text/csv;charset=utf-8"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="livre-de-police-"+today()+".csv";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+
+/* ---------- clients ---------- */
+function pClients(){
+ const t=qv.trim().toLowerCase();
+ const l=t?S.clients.filter(c=>[nomC(c),c.nom,c.telephone,c.email,c.ville].join(" ").toLowerCase().includes(t)):S.clients;
+ const rows=l.map(c=>{const na=S.parc.filter(v=>v.vendeur_id===c.id).length,nv=S.parc.filter(v=>v.acheteur_id===c.id).length;
+  return `<tr><td><b>${esc(nomC(c))}</b><br><span class="mu">${c.type==="professionnel"?"Professionnel":"Particulier"}</span></td><td>${esc(c.telephone||"")}</td><td>${esc(c.email||"")}</td><td>${esc([c.code_postal,c.ville].filter(Boolean).join(" "))}</td><td>${na} / ${nv}</td>
+  <td><div class="acts"><button class="btn or sm" data-cedit="${c.id}">Modifier</button><button class="btn rd sm" data-cdel="${c.id}">${pend==="c:"+c.id?"Confirmer":"Supprimer"}</button></div></td></tr>`}).join("");
+ return `<div class="bar"><h2>Clients <span class="mu">(${l.length})</span></h2></div>
+ <div class="tools"><button class="btn gn" data-cnew>＋ Nouveau client</button><div class="sp"><input id="qv" type="search" placeholder="Rechercher un client…" value="${esc(qv)}" style="min-width:230px"></div></div>
+ ${l.length?`<div class="tbw"><table><thead><tr><th>Client</th><th>Téléphone</th><th>Email</th><th>Ville</th><th>Ventes au garage / Achats</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table></div>`:`<div class="empty">Aucun client. Les clients sont créés ici ou depuis une fiche véhicule.</div>`}
+ <p class="mu" style="margin-top:12px">« Ventes au garage » : véhicules que le client vous a vendus ou déposés. « Achats » : véhicules qu’il vous a achetés.</p>`;
+}
+function cliForm(c,cb,pre){
+ const a=c||pre||{};
+ $("dlg2").innerHTML=`<div class="dh"><h2>${c?"Modifier le client":"Nouveau client"}</h2><button class="btn gy sm" type="button" data-cancel2>Fermer</button></div><form class="db" id="fc">
+ <div class="r2"><div><label>Type</label><select id="c_type">${opt([["particulier","Particulier"],["professionnel","Professionnel"]],a.type||"particulier")}</select></div><div><label>Société (si professionnel)</label><input id="c_soc" value="${esc(a.societe)}"></div></div>
+ <div class="r2"><div><label>Nom *</label><input id="c_nom" value="${esc(a.nom)}" required></div><div><label>Prénom</label><input id="c_prenom" value="${esc(a.prenom)}"></div></div>
+ <div class="r2"><div><label>Téléphone</label><input id="c_tel" type="tel" value="${esc(a.telephone)}"></div><div><label>Email</label><input id="c_mail" type="email" value="${esc(a.email)}"></div></div>
+ <label>Adresse</label><input id="c_adr" value="${esc(a.adresse)}"><div class="r2"><div><label>Code postal</label><input id="c_cp" value="${esc(a.code_postal)}"></div><div><label>Ville</label><input id="c_ville" value="${esc(a.ville)}"></div></div>
+ <div class="r3"><div><label>Sexe (personne physique)</label><select id="c_sexe">${opt([["M","Homme"],["F","Femme"]],a.sexe,"—")}</select></div><div><label>Date de naissance</label><input id="c_dn" type="date" value="${esc(a.date_naissance)}"></div><div><label>Lieu de naissance</label><input id="c_ln" value="${esc(a.lieu_naissance)}"></div></div>
+ <label>N° SIRET (professionnel)</label><input id="c_siret" value="${esc(a.siret)}">
+ <label>Pièce d’identité (nature, numéro, date et lieu de délivrance) : utile pour le livre de police</label><input id="c_pid" value="${esc(a.piece_identite)}">
+ <label>Note</label><textarea id="c_note" rows="2">${esc(a.note)}</textarea><p id="fm2" class="mu"></p>
+ <div class="acts"><button class="btn gn" id="fs2">Enregistrer</button><button class="btn gy" type="button" data-cancel2>Annuler</button></div></form>`;
+ $("fc").onsubmit=async e=>{e.preventDefault();e.stopPropagation();$("fs2").disabled=true;
+  const o={type:$("c_type").value,societe:tv("c_soc"),nom:$("c_nom").value.trim(),prenom:tv("c_prenom"),telephone:tv("c_tel"),email:tv("c_mail"),adresse:tv("c_adr"),code_postal:tv("c_cp"),ville:tv("c_ville"),piece_identite:tv("c_pid"),note:tv("c_note"),sexe:tv("c_sexe"),date_naissance:tv("c_dn"),lieu_naissance:tv("c_ln"),siret:tv("c_siret")};
+  const r=c?await sb.from("clients").update(o).eq("id",c.id).select("*").single():await sb.from("clients").insert(o).select("*").single();
+  if(r.error){$("fm2").textContent="Échec : "+r.error.message;$("fs2").disabled=false;return}
+  S.clients=[...S.clients.filter(x=>x.id!==r.data.id),r.data].sort((x,y)=>nomC(x).localeCompare(nomC(y),"fr"));
+  $("dlg2").close();if(cb)cb(r.data);else await load(true)};
+ $("dlg2").showModal();
+}
+
+/* ---------- demandes ---------- */
+function pDem(t){
+ const all=S.dem.filter(d=>d.type===t),l=flt==="all"?all:all.filter(d=>d.statut===flt);
+ const chips=[["all","Toutes"],...Object.entries(DS)].map(([k,v])=>`<button class="chip ${flt===k?"on":""}" data-flt="${k}">${v}</button>`).join("");
+ const yn=x=>x==="oui"?"Oui":x==="non"?"Non":"";
+ const cards=l.map(d=>{
+  const r=d.recherche||{};
+  let rows=[];
+  if(d.type==="rappel")rows=[["Véhicule",d.vehicule]];
+  else if(d.type==="reservation")rows=[["Véhicule",d.vehicule],["Récupération",d.livraison==="domicile"?"Livraison à domicile":"Retrait au garage"],["Adresse de livraison",d.adresse_livraison]];
+  else if(d.type==="recherche")rows=[["Type de véhicule",r.type_vehicule],["Coup de cœur",r.coeur==="oui"?[r.marque,r.modele].filter(Boolean).join(" "):r.coeur==="non"?"Non, à conseiller":""],["Autres modèles",r.autres_modeles],["Budget max",r.budget?fmt(r.budget)+" € TTC":""],["Énergie",r.energie],["Boîte",r.boite],["Année minimale",r.annee_min],["Km maximum",r.km_max],["Options",(r.options||[]).join(", ")],["Autre option",r.autre_option],["Couleurs",r.couleurs],["Délai",r.delai],["Reprise",r.reprise==="oui"?"Oui"+(r.reprise_detail?" : "+r.reprise_detail:""):yn(r.reprise)],["Précisions",r.precisions]];
+  else rows=[["Immatriculation",d.immatriculation||(d.rappele?"Supprimée (client rappelé)":"")],["Véhicule",d.marque_modele],["Année",d.annee],["Kilométrage",d.km?fmt(d.km)+" km":""],["Énergie",d.energie],["Boîte",d.boite],["État",d.etat],["Souhait",d.souhait==="depot"?"Dépôt-vente":d.souhait==="rachat"?"Rachat par le garage":""],["Projet d’achat",d.projet_achat==="oui"?"Oui 🎁":d.projet_achat==="non"?"Non":""]];
+  rows.push(["Téléphone",d.telephone],["Email",d.email],["Ville",d.ville]);
+  const hint=d.rappele?`<p class="mu">Rappelé le ${dtFr(d.rappele_at)}${d.type==="estimation"?" · plaque supprimée":""}</p>`:d.type==="estimation"?`<p class="mu">Cocher « Client rappelé » supprime définitivement la plaque d’immatriculation.</p>`:"";
+  return `<article class="rq"><h3>${esc(d.nom)} <span class="mu">${dtFr(d.created_at)}</span></h3><dl>${rows.filter(x=>x[1]).map(x=>`<dt>${x[0]}</dt><dd>${esc(x[1])}</dd>`).join("")}</dl>
+  <label class="mu" for="n${d.id}">Note interne</label><textarea id="n${d.id}" rows="2" data-note="${d.id}">${esc(d.note)}</textarea>${hint}
+  <div class="acts" style="margin-top:10px"><label class="chk"><input type="checkbox" data-rap="${d.id}" ${d.rappele?"checked disabled":""}> Client rappelé</label>
+  <select class="in" data-rst="${d.id}" aria-label="Statut">${opt(Object.entries(DS),d.statut)}</select>
+  <button class="btn gy sm" data-dcli="${d.id}">Créer le client</button>${d.type==="estimation"?`<button class="btn gy sm" data-dveh="${d.id}">Créer une entrée au parc</button>`:""}
+  <button class="btn rd sm" data-ddel="${d.id}">${pend==="d:"+d.id?"Confirmer la suppression":"Supprimer"}</button></div></article>`}).join("");
+ return `<div class="bar"><h2>${DT[t]}</h2><div class="chips">${chips}</div></div>${cards||`<div class="empty">Aucune demande ${flt==="all"?"pour le moment":"avec ce statut"}.</div>`}`;
+}
+const act=async p=>{const r=await p;if(r&&r.error)alert("Échec : "+r.error.message);await load(true)};
+
+/* ---------- documents ---------- */
+const G={nom:"EDEN AUTOMOBILES",forme:"SAS au capital de 1 000 €",adr:"3 chemin de Candie, 31120 Portet-sur-Garonne",siret:"938 885 761 00016",rcs:"RCS Toulouse",tva:"FR07938885761",tel:"06 82 00 71 94",mail:"accueil.edenautomobiles@gmail.com"};
+const DOCS={
+ facture:{l:"Facture de vente",pre:"FA",who:"acheteur"},
+ commande:{l:"Bon de commande / contrat de vente",pre:"BC",who:"acheteur"},
+ livraison:{l:"Bon de livraison (procès-verbal)",pre:"BL",who:"acheteur"},
+ achat:{l:"Déclaration d’achat (achat à un particulier)",pre:"BA",who:"vendeur"},
+ depot:{l:"Mandat de dépôt-vente",pre:"MD",who:"vendeur"},
+ cession:{l:"Certificat de cession (cerfa 15776 prérempli)",pre:null,who:"both"}
+};
+const GARANTIE="Garantie légale de conformité et garantie légale des vices cachés.";
+const TVAR={marge:"TVA sur la marge (art. 297 A du CGI)",normale:"TVA normale 20 %",aucune:"Sans TVA (vendeur non assujetti)"};
+function docFields(t,f){
+ const I=(id,l,type,v,ex="")=>`<div><label>${l}</label><input id="g_${id}" type="${type}" value="${esc(v??"")}" ${ex}></div>`;
+ const T=(id,l,v)=>`<div style="grid-column:1/-1"><label>${l}</label><input id="g_${id}" value="${esc(v??"")}"></div>`;
+ const pay=`<div><label>Moyen de paiement</label><select id="g_paiement">${opt(PAY,f.paiement,"—")}</select></div>`;
+ let h="";
+ if(t==="facture")h=I("prix","Prix de vente (€ TTC)","number",f.prix,'step="0.01" min="0"')+`<div><label>Régime de TVA</label><select id="g_tva">${opt(Object.entries(TVAR),f.tva||"marge")}</select></div>`+pay+I("acompte","Acompte déjà versé (€)","number",f.acompte,'step="0.01" min="0"')+T("extra_lib","Ligne en plus (frais de carte grise, livraison…)",f.extra_lib)+I("extra_mt","Montant de cette ligne (€ TTC)","number",f.extra_mt,'step="0.01"')+T("garantie","Garantie",f.garantie??GARANTIE);
+ else if(t==="commande")h=I("prix","Prix de vente (€ TTC)","number",f.prix,'step="0.01" min="0"')+pay+I("acompte","Acompte versé (€)","number",f.acompte,'step="0.01" min="0"')+I("livraison","Date de remise prévue","date",f.livraison)+T("extra_lib","Ligne en plus (frais de carte grise, livraison…)",f.extra_lib)+I("extra_mt","Montant de cette ligne (€ TTC)","number",f.extra_mt,'step="0.01"')+T("garantie","Garantie",f.garantie??GARANTIE);
+ else if(t==="livraison")h=I("km_liv","Kilométrage à la livraison","number",f.km_liv,'min="0"')+I("cles","Nombre de clés remises","number",f.cles??2,'min="0"');
+ else if(t==="achat")h=I("prix","Prix d’achat (€ TTC)","number",f.prix,'step="0.01" min="0"')+pay;
+ else if(t==="depot")h=I("prix","Prix de vente affiché (€ TTC)","number",f.prix,'step="0.01" min="0"')+I("prix_net","Prix net vendeur souhaité (€)","number",f.prix_net,'step="0.01" min="0"')+I("commission","Commission du garage (€ TTC)","number",f.commission,'step="0.01" min="0"')+T("duree","Durée du mandat",f.duree??"3 mois, renouvelable par accord écrit")
+ else if(t==="cession"){
+  const C=(id,l,v)=>`<label class="chk" style="grid-column:1/-1;font-weight:400"><input type="checkbox" id="g_${id}" ${v?"checked":""}> ${l}</label>`;
+  const t2=(id,l,v,ph="")=>`<div><label>${l}</label><input id="g_${id}" value="${esc(v??"")}" placeholder="${ph}"></div>`;
+  return t2("immat","Immatriculation (A)",f.immat)+t2("vin","N° d’identification (E)",f.vin)+I("dmec","Date de 1re immatriculation (B)","date",f.dmec)+t2("marque","Marque (D.1)",f.marque)+t2("typev","Type, variante, version (D.2)",f.typev)+t2("genre","Genre national (J.1)",f.genre,"VP")+t2("denom","Dénomination commerciale (D.3)",f.denom)+I("km","Kilométrage au compteur","number",f.km,'min="0"')
+  +`<div><label>Certificat d’immatriculation</label><select id="g_presence">${opt([["oui","Présent (OUI)"],["non","Absent (NON)"]],f.presence||"oui")}</select></div>`+t2("formule","N° de formule (9 caractères après le « 20 » imprimé)",f.formule).replace("<input ","<input maxlength=\"9\" ")+t2("motif","Motif d’absence (si absent)",f.motif)
+  +I("dvente","Date de la vente","date",f.dvente||today())+I("hvente","Heure de la vente","time",f.hvente||new Date().toTimeString().slice(0,5))+t2("lieu","Fait à",f.lieu??"Portet-sur-Garonne")+I("dfait","Fait le","date",f.dfait||today())
+  +`<div><label>Le vendeur certifie</label><select id="g_cede">${opt([["cession","Céder le véhicule"],["destruction","Céder pour destruction"]],f.cede||"cession")}</select></div>`+t2("agrement","N° d’agrément VHU (si destruction)",f.agrement)
+  +C("ck1","Vendeur : a remis un certificat de situation administrative de moins de 15 jours",f.ck1)+C("ck2","Vendeur : le véhicule n’a pas subi de transformation notable",f.ck2)+C("a1","Acquéreur : acquiert le véhicule aux dates et heures indiquées",f.a1)+C("a2","Acquéreur : a été informé de la situation administrative du véhicule",f.a2);
+ }
+ h+=`<div style="grid-column:1/-1"><label>Remarques / conditions particulières</label><textarea id="g_remarque" rows="2">${esc(f.remarque)}</textarea></div>`;
+ return h;
+}
+function docForm(pre){
+ pre=pre||{};const t=pre.type||"facture",v0=pre.parc_id?S.parc.find(x=>x.id===pre.parc_id):null;
+ const vopts=S.parc.map(v=>[v.id,`n°${v.numero_police} · ${nomV(v)}${v.immatriculation?" · "+v.immatriculation:""}`]);
+ $("dlg").innerHTML=`<div class="dh"><h2>Nouveau document</h2><button class="btn gy sm" type="button" data-cancel>Fermer</button></div><form class="db" id="fd">
+ <div class="r2"><div><label>Type de document</label><select id="d_type">${opt(Object.entries(DOCS).map(([k,x])=>[k,x.l]),t)}</select></div><div><label>Véhicule</label><select id="d_veh" required>${opt(vopts,pre.parc_id||"","— Choisir —")}</select></div></div>
+ <div class="r2"><div id="d_wrap1"></div><div id="d_wrap2"></div></div>
+ <div class="r2"><div><label>Date du document</label><input id="d_date" type="date" value="${today()}" required></div></div>
+ <h3>Détails</h3><div class="r2" id="d_fields"></div><p id="fm" class="mu"></p>
+ <div class="acts"><button class="btn gn" id="fs">Générer le document</button><button class="btn gy" type="button" data-cancel>Annuler</button></div></form>`;
+ const refresh=(keep)=>{
+  const ty=$("d_type").value,vid=$("d_veh").value,v=S.parc.find(x=>x.id===vid)||{},who=DOCS[ty].who;
+  const cs1=(id,l,val)=>`<label>${l}</label>${cs(id,val)}`;
+  if(who==="both"){const sold=!!v.acheteur_id;const dv=sold?"__garage":v.vendeur_id,da=sold?v.acheteur_id:"__garage";
+   $("d_wrap1").innerHTML=`<label>Ancien propriétaire (vendeur)</label>${csg("d_c1",keep?$("d_c1").value:dv)}`;$("d_wrap2").innerHTML=`<label>Nouveau propriétaire (acquéreur)</label>${csg("d_c2",keep?$("d_c2").value:da)}`;}
+  else $("d_wrap1").innerHTML=who==="acheteur"?cs1("d_c1","Acheteur (client)",keep?$("d_c1")&&$("d_c1").value:v.acheteur_id):who==="vendeur"?cs1("d_c1","Vendeur / déposant (client)",keep?$("d_c1")&&$("d_c1").value:v.vendeur_id):cs1("d_c1","Vendeur (celui qui cède)",v.vendeur_id);
+  if(who!=="both")$("d_wrap2").innerHTML="";
+  const f=ty==="facture"||ty==="commande"?{prix:v.prix_vente??v.prix_affiche,paiement:v.moyen_paiement_vente}:ty==="achat"?{prix:v.prix_achat,paiement:v.moyen_paiement_achat}:ty==="depot"?{prix:v.prix_affiche}:ty==="cession"?{immat:v.immatriculation,vin:v.vin,marque:v.marque,typev:v.version,denom:v.modele,km:v.km,dvente:v.date_sortie}:{km_liv:v.km};
+  $("d_fields").innerHTML=docFields(ty,f);
+  ["d_c1","d_c2"].forEach(id=>{const el=$(id);if(el)el.onchange=e=>{if(e.target.value==="__new"){e.target.value="";cliForm(null,c=>{e.target.insertAdjacentHTML("afterbegin",`<option value="${c.id}">${esc(nomC(c))}</option>`);e.target.value=c.id})}}});
+ };
+ $("d_type").onchange=()=>refresh(false);$("d_veh").onchange=()=>refresh(false);refresh(false);
+ $("fd").onsubmit=saveDoc;$("dlg").showModal();
+}
+const GCLI={societe:G.nom,nom:"",type:"professionnel",siret:G.siret.replace(/\s/g,""),adresse:"3 chemin de Candie",code_postal:"31120",ville:"Portet-sur-Garonne",telephone:G.tel,email:G.mail,id:"__garage"};
+const csg=(id,val)=>`<select id="${id}">${opt(S.clients.map(c=>[c.id,nomC(c)+(c.ville?" · "+c.ville:"")]),val,"— Aucun —")}<option value="__garage" ${val==="__garage"?"selected":""}>EDEN AUTOMOBILES (le garage)</option><option value="__new">＋ Nouveau client…</option></select>`;
+const pty=val=>val==="__garage"?GCLI:cl(val);
+const gv=id=>{const e=$(id);return e?e.value.trim():""};
+const gn=id=>{const v=gv(id);return v===""?null:+v};
+async function saveDoc(e){
+ e.preventDefault();$("fs").disabled=true;
+ try{
+  const t=$("d_type").value,v=S.parc.find(x=>x.id===$("d_veh").value),date=$("d_date").value,c1=pty($("d_c1").value),c2=$("d_c2")?pty($("d_c2").value):null;
+  if(!v)throw new Error("Choisissez un véhicule.");
+  const who=DOCS[t].who;
+  if(who!=="both"&&!c1)throw new Error("Choisissez le client.");
+  if(who==="both"&&(!c1||!c2))throw new Error("Choisissez le vendeur et l’acquéreur.");
+  const F={};document.querySelectorAll("#d_fields [id^=g_]").forEach(el=>{const k=el.id.slice(2);F[k]=el.type==="checkbox"?el.checked:el.type==="number"?(el.value===""?null:+el.value):(el.value.trim()||null)});
+  const snap={veh:{nom:nomV(v),marque:v.marque,modele:v.modele,version:v.version,immat:v.immatriculation,vin:v.vin,annee:v.annee,km:v.km,energie:v.energie,boite:v.boite,couleur:v.couleur,police:v.numero_police},
+   vendeur:who==="acheteur"?null:c1||null,acheteur:who==="acheteur"?c1:who==="both"?c2:null,f:F};
+  let numero=null;
+  if(DOCS[t].pre){const y=date.slice(0,4),p=`${DOCS[t].pre}-${y}-`;
+   const n=S.docs.filter(d=>(d.numero||"").startsWith(p)).reduce((m,d)=>Math.max(m,+d.numero.slice(p.length)||0),0)+1;numero=p+String(n).padStart(4,"0")}
+  const cid=(who==="acheteur"?c1:c1)&&(who==="acheteur"?c1:c1).id!=="__garage"?c1.id:(c2&&c2.id!=="__garage"?c2.id:null);
+  const r=await sb.from("documents").insert({type:t,numero,date_doc:date,parc_id:v.id,client_id:cid,data:snap}).select("*").single();
+  if(r.error)throw r.error;
+  S.docs.unshift(r.data);$("dlg").close();render();showDoc(r.data);
+ }catch(err){$("fm").textContent="Échec : "+(err.message||"erreur");$("fs").disabled=false}
+}
+const m2=n=>n==null||n===""?"":Number(n).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2})+" €";
+const party=(c,id)=>{if(!c)return `<p class="mu">Non renseigné</p>`;return `<p><b>${esc(nomC(c))}</b>${c.societe&&c.nom?`<br>${esc([c.prenom,c.nom].filter(Boolean).join(" "))}`:""}<br>${esc(c.adresse||"")}${c.adresse?"<br>":""}${esc([c.code_postal,c.ville].filter(Boolean).join(" "))}${c.telephone?"<br>Tél. "+esc(c.telephone):""}${c.email?"<br>"+esc(c.email):""}${id&&c.piece_identite?"<br>Pièce d’identité : "+esc(c.piece_identite):""}</p>`};
+const gar=()=>`<p><b>${G.nom}</b>, ${G.forme}<br>${G.adr}<br>SIRET ${G.siret} · ${G.rcs}<br>TVA intracommunautaire ${G.tva}<br>Tél. ${G.tel} · ${G.mail}</p>`;
+function docHtml(rec){
+ const t=rec.type,s=rec.data,F=s.f||{},v=s.veh||{},num=rec.numero,date=dFr(rec.date_doc);
+ const vt=`<table class="kv"><tr><th>Véhicule</th><td>${esc(v.nom)}</td><th>Immatriculation</th><td>${esc(v.immat||"")}</td></tr><tr><th>N° de série (VIN)</th><td>${esc(v.vin||"")}</td><th>Mise en circulation</th><td>${esc(v.annee||"")}</td></tr><tr><th>Kilométrage</th><td>${v.km!=null?fmt(v.km)+" km":""}</td><th>Énergie / boîte</th><td>${esc([v.energie,v.boite].filter(Boolean).join(" / "))}</td></tr><tr><th>Couleur</th><td>${esc(v.couleur||"")}</td><th>N° de police</th><td>${esc(v.police||"")}</td></tr></table>`;
+ const sign=(a,b)=>`<div class="sg"><div><b>${a}</b><br><small>Date, signature précédée de « Lu et approuvé »</small></div><div><b>${b}</b><br><small>Date, signature précédée de « Lu et approuvé »</small></div></div>`;
+ const rem=F.remarque?`<h3>Conditions particulières</h3><p>${esc(F.remarque).replace(/\n/g,"<br>")}</p>`:"";
+ let title=DOCS[t].l,body="";
+ const tot=(F.prix||0)+(F.extra_mt||0);
+ if(t==="facture"){
+  title="Facture"+(num?" n° "+num:"");
+  const ht=tot/1.2;
+  const tvaTxt=F.tva==="normale"?`<tr><td>Total HT</td><td>${m2(ht)}</td></tr><tr><td>TVA 20 %</td><td>${m2(tot-ht)}</td></tr>`:"";
+  const mention=F.tva==="marge"?"TVA sur la marge – biens d’occasion – article 297 A du CGI. La TVA n’est pas récupérable.":F.tva==="aucune"?"TVA non applicable.":"";
+  body=`<div class="two"><div><h3>Vendeur</h3>${gar()}</div><div><h3>Client</h3>${party(s.acheteur)}</div></div><p>Date de la facture : <b>${date}</b></p>${vt}
+  <table class="ln"><thead><tr><th>Désignation</th><th>Montant</th></tr></thead><tbody><tr><td>Véhicule d’occasion ${esc(v.nom)}${v.immat?" – immat. "+esc(v.immat):""}</td><td>${m2(F.prix)}</td></tr>${F.extra_lib?`<tr><td>${esc(F.extra_lib)}</td><td>${m2(F.extra_mt)}</td></tr>`:""}</tbody></table>
+  <table class="tt">${tvaTxt}<tr><td><b>Total TTC</b></td><td><b>${m2(tot)}</b></td></tr>${F.acompte?`<tr><td>Acompte versé</td><td>${m2(F.acompte)}</td></tr><tr><td><b>Reste à payer</b></td><td><b>${m2(tot-F.acompte)}</b></td></tr>`:""}</table>
+  ${mention?`<p><small>${mention}</small></p>`:""}<p>Mode de règlement : ${esc(F.paiement||"—")}.</p><p>${esc(F.garantie||"")}</p>${rem}`;
+ }else if(t==="commande"){
+  title="Bon de commande / contrat de vente"+(num?" n° "+num:"");
+  body=`<div class="two"><div><h3>Vendeur</h3>${gar()}</div><div><h3>Acheteur</h3>${party(s.acheteur)}</div></div><p>Fait le <b>${date}</b></p>${vt}
+  <h3>Prix</h3><table class="tt"><tr><td>Prix du véhicule (TTC)</td><td>${m2(F.prix)}</td></tr>${F.extra_lib?`<tr><td>${esc(F.extra_lib)}</td><td>${m2(F.extra_mt)}</td></tr>`:""}<tr><td><b>Total TTC</b></td><td><b>${m2(tot)}</b></td></tr>${F.acompte?`<tr><td>Acompte versé</td><td>${m2(F.acompte)}</td></tr><tr><td><b>Solde à payer</b></td><td><b>${m2(tot-F.acompte)}</b></td></tr>`:""}</table>
+  <p>Mode de paiement : ${esc(F.paiement||"—")}.${F.livraison?` Remise du véhicule prévue le ${dFr(F.livraison)}.`:""}</p>
+  <h3>Conditions</h3><ol><li>Le vendeur vend à l’acheteur le véhicule d’occasion décrit ci-dessus, au prix indiqué.</li><li>Le solde est payable au plus tard à la remise du véhicule. Le certificat d’immatriculation et les documents nécessaires au changement de titulaire sont remis avec le véhicule.</li><li>${esc(F.garantie||GARANTIE)}</li><li>L’acheteur reconnaît avoir pris connaissance des caractéristiques du véhicule décrites ci-dessus.</li></ol>${rem}${sign("Le vendeur (EDEN AUTOMOBILES)","L’acheteur")}`;
+ }else if(t==="livraison"){
+  title="Bon de livraison – procès-verbal de remise";
+  body=`<div class="two"><div><h3>Vendeur</h3>${gar()}</div><div><h3>Acheteur</h3>${party(s.acheteur)}</div></div><p>Véhicule remis le <b>${date}</b>, kilométrage à la livraison : <b>${F.km_liv!=null?fmt(F.km_liv)+" km":"……………"}</b>.</p>${vt}
+  <h3>Documents et éléments remis</h3><ul class="cb"><li>☐ Certificat d’immatriculation</li><li>☐ Certificat de cession</li><li>☐ Certificat de situation administrative</li><li>☐ Carnet d’entretien et factures</li><li>☐ Contrôle technique</li><li>☐ Clés (${F.cles??2})</li><li>☐ Notice / accessoires</li></ul>
+  <p>L’acheteur reconnaît avoir reçu le véhicule décrit ci-dessus et les éléments cochés.</p>${rem}${sign("Le vendeur (EDEN AUTOMOBILES)","L’acheteur")}`;
+ }else if(t==="achat"){
+  title="Déclaration d’achat"+(num?" n° "+num:"");
+  body=`<div class="two"><div><h3>Vendeur</h3>${party(s.vendeur,true)}</div><div><h3>Acheteur</h3>${gar()}</div></div><p>Fait le <b>${date}</b></p>${vt}
+  <p>Le vendeur déclare vendre à EDEN AUTOMOBILES le véhicule décrit ci-dessus pour le prix de <b>${m2(F.prix)}</b> TTC, payé par ${esc(F.paiement||"……………")}.</p>
+  <h3>Déclarations du vendeur</h3><ol><li>Il est le propriétaire du véhicule et peut en disposer librement.</li><li>Le véhicule n’est ni gagé, ni volé, et ne fait l’objet d’aucune opposition à sa vente à sa connaissance.</li><li>Le kilométrage indiqué est celui relevé au compteur du véhicule.</li><li>Il remet le certificat d’immatriculation barré et signé, ainsi que les clés et documents disponibles.</li></ol>
+  <p><small>Le vendeur reste tenu de déclarer la cession du véhicule sur le site de l’ANTS (certificat de cession, cerfa 15776).</small></p>${rem}${sign("Le vendeur","L’acheteur (EDEN AUTOMOBILES)")}`;
+ }else if(t==="depot"){
+  title="Mandat de dépôt-vente"+(num?" n° "+num:"");
+  body=`<div class="two"><div><h3>Le mandant (propriétaire)</h3>${party(s.vendeur,true)}</div><div><h3>Le mandataire</h3>${gar()}</div></div><p>Fait le <b>${date}</b></p>${vt}
+  <h3>Conditions de la vente</h3><table class="tt"><tr><td>Prix de vente affiché (TTC)</td><td>${m2(F.prix)}</td></tr><tr><td>Prix net vendeur souhaité</td><td>${m2(F.prix_net)}</td></tr><tr><td>Commission du garage (TTC)</td><td>${m2(F.commission)}</td></tr></table>
+  <p>Durée du mandat : ${esc(F.duree||"……………")}.</p>
+  <ol><li>Le mandant donne mandat à EDEN AUTOMOBILES de vendre le véhicule décrit ci-dessus au prix indiqué, et déclare en être le propriétaire.</li><li>Le garage présente le véhicule, gère les visites et les formalités de vente, et tient le mandant informé des étapes.</li><li>Le prix net vendeur est reversé au mandant après encaissement du prix par le garage.</li><li>Le mandant remet le véhicule, ses clés et ses documents. Il peut mettre fin au mandat par écrit.</li></ol>${rem}${sign("Le mandant","Le mandataire (EDEN AUTOMOBILES)")}`;
+ }else{
+  title="Fiche cession – aide au remplissage";
+  body=`<p>Le certificat de cession est un formulaire officiel (cerfa 15776). Il se remplit en ligne sur le site de l’ANTS, ou sur le formulaire officiel en PDF. Voici les informations à reporter.</p>
+  <div class="two"><div><h3>Cédant (vendeur)</h3>${party(s.vendeur,true)}</div><div><h3>Acquéreur</h3>${party(s.acheteur,true)}</div></div>${vt}<p>Date de la cession : <b>${date}</b></p>`;
+ }
+ return `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>${esc(title)}</title><style>
+ body{font:13.5px/1.45 Arial,Helvetica,sans-serif;color:#111;margin:0;padding:28px 34px}h1{font-size:22px;margin:0 0 4px}h3{font-size:13px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #999;padding-bottom:3px}
+ p{margin:6px 0}.hd{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #D4202A;padding-bottom:10px;margin-bottom:12px}.hd b.l{font-size:20px}.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+ table{border-collapse:collapse;width:100%;margin:8px 0}.kv th{text-align:left;width:17%;background:#F2F2F2;border:1px solid #ccc;padding:5px 7px}.kv td{border:1px solid #ccc;padding:5px 7px;width:33%}
+ .ln th{background:#F2F2F2;border:1px solid #ccc;padding:6px;text-align:left}.ln td{border:1px solid #ccc;padding:7px}.ln td:last-child,.ln th:last-child{text-align:right;width:130px}
+ .tt{width:55%;margin-left:auto}.tt td{padding:4px 7px;border-bottom:1px solid #ddd}.tt td:last-child{text-align:right}
+ ol,ul{margin:6px 0 6px 18px;padding:0}li{margin:4px 0}.cb{list-style:none;margin-left:0;columns:2}.sg{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:26px}.sg div{border:1px solid #999;height:110px;padding:8px}small{color:#555}.mu{color:#777}
+ .ft{margin-top:22px;border-top:1px solid #ccc;padding-top:6px;font-size:11px;color:#666}@page{size:A4;margin:12mm}</style></head><body>
+ <div class="hd"><div><b class="l">${G.nom}</b><br><small>${G.adr}<br>${G.tel} · ${G.mail}</small></div><div style="text-align:right"><h1>${esc(title)}</h1><small>${date}</small></div></div>
+ ${body}<div class="ft">${G.nom} – ${G.forme} – SIRET ${G.siret} – ${G.rcs} – TVA ${G.tva}</div></body></html>`;
+}
+/* ---------- certificat de cession (cerfa 15776) ---------- */
+const VOIES=["avenue","av","boulevard","bd","chemin","rue","route","impasse","allée","allee","place","cours","quai","square","passage","lotissement","résidence","residence","voie","sentier","chaussée","rond-point","zone","hameau","lieu-dit","lieudit","villa","cité","cite","esplanade","traverse","mail"];
+function parseAdr(a){a=String(a||"").trim();const m=a.match(/^(\d+)?\s*(?:(bis|ter|quater|[a-d])\s+)?(.*)$/i);let num=m[1]||"",ext=m[2]||"",rest=m[3]||"";
+ if(ext&&!num){rest=ext+" "+rest;ext=""}
+ const w=rest.split(/\s+/);let type="";if(w.length&&VOIES.includes(w[0].toLowerCase())){type=w.shift()}
+ return{num,ext,type,voie:w.join(" ")}}
+const dparts=iso=>iso&&/^\d{4}-\d{2}-\d{2}/.test(iso)?[iso.slice(8,10),iso.slice(5,7),iso.slice(0,4)]:["","",""];
+const dfr2=iso=>{const p=dparts(iso);return p[0]?p.join("/"):""};
+async function cerfaBytes(rec){
+ const s=rec.data,F=s.f||{},L=PDFLib;
+ const pdf=await L.PDFDocument.load(await (await fetch("/cerfa/cession.pdf")).arrayBuffer());
+ const form=pdf.getForm();const af=pdf.catalog.lookup(L.PDFName.of("AcroForm"),L.PDFDict);af.delete(L.PDFName.of("XFA"));
+ const font=await pdf.embedFont(L.StandardFonts.Helvetica);
+ const safe=t=>String(t??"").split("").map(c=>{try{font.encodeText(c);return c}catch(e){return "?"}}).join("");
+ for(const pg of ["Page1","Page2"]){
+  const P="topmostSubform[0]."+pg+"[0].";
+  const tx=(n,v)=>{if(v==null||v==="")return;try{const f=form.getTextField(P+n+"[0]");f.setText(safe(v));f.updateAppearances(font)}catch(e){console.warn(n,e.message)}};
+  const rd=(n,v)=>{try{form.getRadioGroup(P+n+"[0]").select(v)}catch(e){console.warn(n,e.message)}};
+  const ck=(n,on)=>{if(!on)return;try{form.getCheckBox(P+n+"[0]").check()}catch(e){console.warn(n,e.message)}};
+  const dm=dparts(F.dmec),dv=dparts(F.dvente),[hh,mm]=String(F.hvente||"").split(":");
+  tx("num_Immatriculation",F.immat);tx("num_Identification",F.vin);tx("num_DateImmatriculationJour",dm[0]);tx("num_DateImmatriculationMois",dm[1]);tx("num_DateImmatriculationAnnée",dm[2]);
+  tx("txt_MarqueVéhicule",F.marque);tx("txt_TypeVarianteVersionVéhicule",F.typev);tx("txt_GenreNational",F.genre);tx("txt_DénominationCommerciale",F.denom);tx("num_KilométrageCompteur",F.km!=null?String(F.km):"");
+  if(F.presence==="non"){rd("Groupe_de_boutons_radio1","2");tx("txt_MotifAbscenceCertificat",F.motif)}else{rd("Groupe_de_boutons_radio1","1");tx("num_Formule",F.formule)}
+  const V=s.vendeur,A=s.acheteur;
+  if(V){const morale=V.type==="professionnel";rd("Groupe_de_boutons_radio3",morale?"1":"2");if(!morale&&V.sexe)rd("Groupe_de_boutons_radio2",V.sexe==="F"?"2":"1");
+   tx("txt_IdentitéVendeur",morale&&V.societe?V.societe:[V.nom,V.prenom].filter(Boolean).join(" "));tx("Num_Siret",(V.siret||"").replace(/\D/g,""));
+   const a=parseAdr(V.adresse);tx("num_VoieAdresse",a.num);tx("txt_ExtensionAdresse",a.ext);tx("txt_TypeVoieAdresse",a.type);tx("txt_NomVoie",a.voie);tx("num_CodePostalAdresse",V.code_postal);tx("txt_CommuneAdresse",V.ville)}
+  rd("Groupe_de_boutons_radio4",F.cede==="destruction"?"2":"1");
+  tx("num_DateVenteJour",dv[0]);tx("num_DateVenteMois",dv[1]);tx("num_DateVenteAnnée",dv[2]);tx("num_HoraireVente1",hh);tx("num_HoraireVente2",mm);
+  ck("ckb_ValidationDéclaration1",F.ck1);ck("ckb_ValidationDéclaration2",F.ck2);if(F.cede==="destruction"){ck("ckb_ValidationDéclaration3",true);tx("num_Agrément",F.agrement)}
+  tx("txt_LieuDéclaration1",F.lieu);tx("num_DateDéclaration",dfr2(F.dfait));
+  if(A){const morale=A.type==="professionnel";rd("Groupe_de_boutons_radio5",morale?"1":"2");if(!morale&&A.sexe)rd("Groupe_de_boutons_radio6",A.sexe==="F"?"2":"1");
+   tx("txt_IdentitéAcheteur",morale&&A.societe?A.societe:[A.nom,A.prenom].filter(Boolean).join(" "));tx("num_SiretAcheteur",(A.siret||"").replace(/\D/g,""));
+   if(!morale){const b=dparts(A.date_naissance);tx("num_DateNaissanceAcheteurJ",b[0]);tx("num_DateNaissanceAcheteurM",b[1]);tx("num_DateNaissanceAcheteurA",b[2]);tx("txt_LieuNaissanceAcheteur",A.lieu_naissance)}
+   const a=parseAdr(A.adresse);tx("num_VoieAdresseAcheteur",a.num);tx("txt_ExtensionAdresseAcheteur",a.ext);tx("txt_TypeVoieAdresseAcheteur",a.type);tx("txt_NomVoieAdresseAcheteur",a.voie);tx("num_CodePostalAdresseAcheteur",A.code_postal);tx("txt_CommuneAdresseAcheteur",A.ville)}
+  ck("ckb_ValidationDéclarationA1",F.a1);ck("ckb_ValidationDéclarationA2",F.a2);
+  tx("txt_LieuDéclaration2",F.lieu);tx("txt_dateDéclaration",dfr2(F.dfait));
+ }
+ return await pdf.save({updateFieldAppearances:false});
+}
+let cerfaUrl=null;
+async function showCession(rec){
+ $("dlg").innerHTML=`<div class="dh"><h2>Certificat de cession · ${esc((rec.data.veh||{}).nom||"")}</h2><span class="acts"><button class="btn gn" data-doprint>Imprimer</button><a class="btn" id="dlpdf" download="certificat-de-cession.pdf">Télécharger</a><button class="btn gy" data-cancel>Fermer</button></span></div><div class="db"><p id="cfm" class="mu">Préparation du PDF…</p><iframe id="dfr" title="Certificat de cession" style="width:100%;height:70vh;border:1px solid var(--ln);background:#fff"></iframe><p class="mu">Formulaire officiel cerfa 15776*01 prérempli. Vérifiez chaque case, puis faites signer les deux parties.</p></div>`;
+ $("dlg").showModal();
+ try{const b=await cerfaBytes(rec);if(cerfaUrl)URL.revokeObjectURL(cerfaUrl);cerfaUrl=URL.createObjectURL(new Blob([b],{type:"application/pdf"}));$("dfr").src=cerfaUrl;$("dlpdf").href=cerfaUrl;$("cfm").textContent=""}
+ catch(e){$("cfm").textContent="Échec de la génération : "+e.message}
+}
+function showDoc(rec){
+ if(rec.type==="cession")return showCession(rec);
+ const html=docHtml(rec);
+ $("dlg").innerHTML=`<div class="dh"><h2>${esc(DOCS[rec.type].l)}${rec.numero?" · "+esc(rec.numero):""}</h2><span class="acts"><button class="btn gn" data-doprint>Imprimer / PDF</button><button class="btn gy" data-cancel>Fermer</button></span></div><div class="db"><iframe id="dfr" title="Aperçu du document" style="width:100%;height:68vh;border:1px solid var(--ln);background:#fff"></iframe><p class="mu">Pour enregistrer en PDF, cliquez sur « Imprimer / PDF » puis choisissez « Enregistrer au format PDF ». Modèle indicatif : faites-le valider par votre conseil avant usage.</p></div>`;
+ $("dfr").srcdoc=html;$("dlg").showModal();
+}
+function pDocs(){
+ const rows=S.docs.map(d=>{const v=S.parc.find(x=>x.id===d.parc_id),c=cl(d.client_id);return `<tr><td>${dFr(d.date_doc)}</td><td><span class="bd b-bl">${esc(DOCS[d.type]?DOCS[d.type].l:d.type)}</span></td><td>${esc(d.numero||"–")}</td><td>${v?esc(nomV(v)):"<span class=mu>Véhicule supprimé</span>"}</td><td>${esc(nomC(c))}</td>
+ <td><div class="acts"><button class="btn or sm" data-dopen="${d.id}">Ouvrir</button>${d.type==="facture"?"":`<button class="btn rd sm" data-dodel="${d.id}">${pend==="o:"+d.id?"Confirmer":"Supprimer"}</button>`}</div></td></tr>`}).join("");
+ return `<div class="bar"><h2>Documents <span class="mu">(${S.docs.length})</span></h2></div>
+ <div class="tools"><button class="btn gn" data-docnew>＋ Nouveau document</button><span class="mu">Facture, bon de commande, bon de livraison, déclaration d’achat, mandat de dépôt-vente, aide au certificat de cession.</span></div>
+ ${S.docs.length?`<div class="tbw"><table><thead><tr><th>Date</th><th>Type</th><th>Numéro</th><th>Véhicule</th><th>Client</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table></div>`:`<div class="empty">Aucun document généré. Cliquez sur « Nouveau document » ou sur « Documents » dans la ligne d’un véhicule.</div>`}
+ <p class="mu" style="margin-top:12px">Les factures ne peuvent pas être supprimées : leur numérotation doit rester continue.</p>`;
+}
+/* ---------- description automatique ---------- */
+const OPTS_C=["GPS","Caméra de recul","Radars de stationnement","Toit ouvrant ou panoramique","Sièges chauffants","Sièges en cuir","Apple CarPlay / Android Auto","Régulateur de vitesse","Régulateur de vitesse adaptatif","Climatisation automatique","Jantes alliage","Attelage","Démarrage sans clé","Feux LED","Bluetooth","Aide au stationnement","Écran tactile","7 places"];
+function genDesc(){
+ const g=id=>($(id).value||"").trim(),n=id=>+$(id).value||null;
+ const nom=[g("v_marque"),g("v_modele"),g("v_version")].filter(Boolean).join(" "),an=n("v_annee"),km=$("v_km").value!==""?+$("v_km").value:null;
+ const opts=[...document.querySelectorAll(".dopt:checked")].map(x=>x.value);
+ const extra=g("v_equip").split("\n").map(s=>s.trim()).filter(Boolean);
+ const all=[...new Set([...opts,...extra])];
+ const l=[];
+ l.push(`${nom||"Véhicule d’occasion"}${g("v_couleur")?", teinte "+g("v_couleur").toLowerCase():""}.`);
+ const car=[];if(an)car.push(`mise en circulation en ${an}`);if(km!=null)car.push(`${fmt(km)} km au compteur`);if(g("v_energie"))car.push(`motorisation ${g("v_energie").toLowerCase()}`);if(g("v_boite"))car.push(`boîte ${g("v_boite").toLowerCase()}`);
+ if(car.length)l.push(car[0].charAt(0).toUpperCase()+car[0].slice(1)+(car.length>1?", "+car.slice(1).join(", "):"")+".");
+ if(all.length)l.push("Équipements : "+all.join(", ")+".");
+ const px=n("v_paff");if(px)l.push(`Proposé à ${fmt(px)} € TTC chez EDEN AUTOMOBILES, à Portet-sur-Garonne, près de Toulouse.`);
+ const sv=[];if($("d_reprise").checked)sv.push("Reprise de votre véhicule possible");if($("d_livr").checked)sv.push("livraison à domicile possible");
+ if(sv.length)l.push(sv.join(", ").replace(/^./,c=>c.toUpperCase())+".");
+ l.push(`Renseignements et essai : ${G.tel}.`);
+ $("v_desc").value=l.join("\n");
+ $("v_equip").value=all.join("\n");
+}
+
+/* ---------- événements ---------- */
+document.addEventListener("click",e=>{
+ const t=e.target.closest("button,.sc");if(!t)return;const d=t.dataset;
+ if(d.go){view=d.go;flt="all";qv="";pend=null;navOpen=false;render();window.scrollTo(0,0)}
+ else if("nav" in d){navOpen=!navOpen;render()}
+ else if("site" in d)window.open("/","_blank");
+ else if("refresh" in d)load(true);
+ else if("out" in d)sb.auth.signOut().then(()=>login());
+ else if(d.flt){flt=d.flt;render()}
+ else if("vnew" in d)vehForm(null);
+ else if(d.vedit)vehForm(S.parc.find(v=>v.id===d.vedit));
+ else if(d.pub)publish(d.pub,true);
+ else if(d.unpub)publish(d.unpub,false);
+ else if(d.sortie)sortieForm(d.sortie);
+ else if("import" in d)importAnnonces();
+ else if("csv" in d)csv();
+ else if("print" in d)window.print();
+ else if("cancel" in d)$("dlg").close();
+ else if("gendesc" in d)genDesc();
+ else if(d.vdoc)docForm({parc_id:d.vdoc});
+ else if("docnew" in d)docForm();
+ else if(d.dopen)showDoc(S.docs.find(x=>x.id===d.dopen));
+ else if("doprint" in d){const f=$("dfr");f.contentWindow.focus();f.contentWindow.print()}
+ else if(d.dodel){if(pend==="o:"+d.dodel){pend=null;act(sb.from("documents").delete().eq("id",d.dodel))}else{pend="o:"+d.dodel;render()}}
+ else if("cancel2" in d)$("dlg2").close();
+ else if(d.rph!==undefined){ph.splice(+d.rph,1);$("phs").innerHTML=phHtml()}
+ else if("cnew" in d)cliForm(null);
+ else if(d.cedit)cliForm(cl(d.cedit));
+ else if(d.cdel){if(pend==="c:"+d.cdel){pend=null;act(sb.from("clients").delete().eq("id",d.cdel))}else{pend="c:"+d.cdel;render()}}
+ else if(d.dcli){const x=S.dem.find(z=>z.id===d.dcli);const w=String(x.nom||"").trim().split(/\s+/);cliForm(null,null,{prenom:w.length>1?w[0]:"",nom:w.length>1?w.slice(1).join(" "):x.nom,telephone:x.telephone,email:x.email,ville:x.ville})}
+ else if(d.dveh){const x=S.dem.find(z=>z.id===d.dveh),w=String(x.marque_modele||"").trim().split(/\s+/);vehForm(null,{marque:w[0]||"",modele:w.slice(1).join(" "),annee:x.annee,km:x.km,energie:x.energie,boite:x.boite,immatriculation:x.immatriculation,type_entree:x.souhait==="depot"?"depot_vente":"achat",note:x.etat})}
+ else if(d.ddel){if(pend==="d:"+d.ddel){pend=null;act(sb.from("demandes").delete().eq("id",d.ddel))}else{pend="d:"+d.ddel;render()}}
+});
+document.addEventListener("change",e=>{
+ const d=e.target.dataset,v=e.target.value;
+ if(d.vst)setStatut(d.vst,v);
+ if(d.rst)act(sb.from("demandes").update({statut:v}).eq("id",d.rst));
+ if(d.note)act(sb.from("demandes").update({note:v}).eq("id",d.note));
+ if(d.rap&&e.target.checked)act(sb.from("demandes").update({rappele:true}).eq("id",d.rap));
+});
+document.addEventListener("input",e=>{if(e.target.id==="qv"){qv=e.target.value;const p=e.target.selectionStart;$("mn").innerHTML=page();const n=$("qv");n.focus();n.setSelectionRange(p,p)}});
+init();
+</script>
+</body>
+</html>
