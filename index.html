@@ -16,7 +16,7 @@
 <meta property="og:description" content="Garage à Portet-sur-Garonne près de Toulouse : nous trouvons la voiture d’occasion que vous cherchez. Objectif −10 % sous le prix du marché (non garanti).">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoDealer","name":"EDEN AUTOMOBILES","url":"https://edenautomobile.fr/","logo":"https://edenautomobile.fr/logo.png","image":"https://edenautomobile.fr/logo.png","telephone":"+33682007194","email":"accueil.edenautomobiles@gmail.com","description":"Garage automobile à Portet-sur-Garonne : recherche personnalisée de véhicule d’occasion, vente, reprise et dépôt-vente.","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","bestRating":"5","ratingCount":"71"},"address":{"@type":"PostalAddress","streetAddress":"3 chemin de Candie","postalCode":"31120","addressLocality":"Portet-sur-Garonne","addressRegion":"Occitanie","addressCountry":"FR"},"areaServed":["Portet-sur-Garonne","Toulouse","Haute-Garonne"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday"],"opens":"09:30","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"09:30","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"10:00","closes":"16:00"}]}</script>
-<link rel="stylesheet" href="/style.css?v=1">
+<link rel="stylesheet" href="/style.css?v=2">
 </head>
 <body>
 <header><div class="w bar"><a class="logo" href="#top" aria-label="EDEN AUTOMOBILES, accueil"><img src="/logo.png" alt="" width="50" height="50"><span class="lt">Eden<span>.</span> Automobiles</span></a>
@@ -51,6 +51,8 @@
 <label>Kilométrage maximum<select id="fk"><option value="">Tous</option><option value="30000">30 000 km</option><option value="60000">60 000 km</option><option value="100000">100 000 km</option><option value="150000">150 000 km</option></select></label>
 <label>Trier par<select id="fs"><option value="recent">Plus récents en ligne</option><option value="prix-asc">Prix croissant</option><option value="prix-desc">Prix décroissant</option><option value="km-asc">Kilométrage croissant</option><option value="annee-desc">Année la plus récente</option></select></label>
 </div><p style="margin:12px 0 0"><button type="button" class="lk" data-reset>Réinitialiser les filtres</button></p></details>
+<div class="tabs" id="tabs" hidden><button type="button" class="on" data-mode="dispo">À vendre <b id="nd"></b></button><button type="button" data-mode="vendu">Déjà vendus <b id="ns"></b></button></div>
+<p class="mt" id="soldnote" hidden>Ces véhicules ont trouvé preneur. Le même modèle vous intéresse ? Nous le recherchons pour vous.</p>
 <p class="res" aria-live="polite"><span id="res"></span><a class="lk" href="#top" data-prefill>Vous ne trouvez pas votre voiture ? Lancez une recherche personnalisée</a></p>
 <div class="grid" id="cars"><p class="mt">Chargement des véhicules…</p></div>
 <p class="more"><button type="button" class="btn g" id="more" data-more hidden>Voir plus de véhicules</button></p>
@@ -89,7 +91,7 @@ const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&
 const fmt=n=>Number(n||0).toLocaleString("fr-FR");
 const X='<button class="x" type="button" data-close aria-label="Fermer">×</button>';
 const CONS='<label class="cs"><input type="checkbox" name="consent" required> J’accepte que EDEN AUTOMOBILES utilise ces informations pour me recontacter (voir la politique de confidentialité).</label><input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">';
-let CARS=[],CUR=0;
+let CARS=[],CUR=0,MODE="dispo";
 if($("revs"))$("revs").innerHTML=REVIEWS.map((r,i)=>`<button type="button" class="rev" data-rev="${i}" aria-label="Lire l’avis complet de ${esc(r.nom)}"><span class="who"><span class="av">${esc(r.nom.charAt(0))}</span><span><strong>${esc(r.nom)}</strong><small>${esc(r.date)}</small></span></span><span class="st" aria-hidden="true">★★★★★</span><q>… ${esc(r.extrait)} …</q><u>Lire l’avis complet</u></button>`).join("");
 const rvFit=()=>{const r=$("revs");if(!r)return;document.querySelectorAll(".rvb").forEach(x=>x.hidden=r.scrollWidth<=r.clientWidth+2)};addEventListener("resize",rvFit);addEventListener("load",rvFit);rvFit();
 (()=>{const r=$("revs");if(!r)return;const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;let hold=false,k=0;
@@ -105,15 +107,17 @@ const MULTI=["land rover","alfa romeo","aston martin","rolls royce","ds automobi
 const marque=t=>{const x=String(t||"").trim(),l=x.toLowerCase(),m=MULTI.find(k=>l.startsWith(k));return m?x.slice(0,m.length):(x.split(/\s+/)[0]||"")};
 const slug=t=>norm(t).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");const vurl=a=>"/vehicule/"+a.id+"/"+slug(a.titre);
 const cardHTML=(a,i)=>{const ps=(a.photos||[]).slice(0,4);
- return `<article class="card">${a.statut==="reserve"?'<span class="tag">Réservé</span>':""}<div class="ph">${ps.length?`<div class="sl" data-open="${i}">${ps.map(u=>`<img src="${esc(u)}" alt="${esc(a.titre)}" loading="lazy" draggable="false">`).join("")}</div>${ps.length>1?`<button type="button" class="ar l" data-sl="-1" aria-label="Photo précédente">‹</button><button type="button" class="ar r" data-sl="1" aria-label="Photo suivante">›</button><div class="dots">${ps.map((_,k)=>`<i class="${k?"":"on"}"></i>`).join("")}</div>`:""}`:"Photo à venir"}</div>
- <div class="in"><h3><a class="nm" href="${vurl(a)}" data-car="${i}">${esc(a.titre)}</a></h3><div class="mt">${[a.annee,a.km!=null?fmt(a.km)+" km":"",a.energie,a.boite].filter(Boolean).map(esc).join(" · ")}</div><div class="pr">${fmt(a.prix)} € TTC</div>
- <div class="ac"><button class="btn g" type="button" data-car="${i}">Voir la fiche</button><button class="btn" type="button" data-car="${i}" data-call>Être rappelé</button></div></div></article>`};
+ const sold=a.statut==="vendu";
+ return `<article class="card${sold?" sold":""}">${sold?'<span class="tag sd">Vendu</span>':a.statut==="reserve"?'<span class="tag">Réservé</span>':""}<div class="ph">${ps.length?`<div class="sl" data-open="${i}">${ps.map(u=>`<img src="${esc(u)}" alt="${esc(a.titre)}" loading="lazy" draggable="false">`).join("")}</div>${ps.length>1?`<button type="button" class="ar l" data-sl="-1" aria-label="Photo précédente">‹</button><button type="button" class="ar r" data-sl="1" aria-label="Photo suivante">›</button><div class="dots">${ps.map((_,k)=>`<i class="${k?"":"on"}"></i>`).join("")}</div>`:""}`:"Photo à venir"}</div>
+ <div class="in"><h3><a class="nm" href="${sold?"#acheter":vurl(a)}" data-car="${i}">${esc(a.titre)}</a></h3><div class="mt">${[a.annee,a.km!=null?fmt(a.km)+" km":"",a.energie,a.boite].filter(Boolean).map(esc).join(" · ")}</div>${sold?"":`<div class="pr">${fmt(a.prix)} € TTC</div>`}
+ <div class="ac"><button class="btn g" type="button" data-car="${i}">${sold?"Voir les photos":"Voir la fiche"}</button>${sold?`<a class="btn" href="#top" data-prefill data-car="${i}">Trouver le même</a>`:`<button class="btn" type="button" data-car="${i}" data-call>Être rappelé</button>`}</div></div></article>`};
 let LIST=[],SHOWN=0;const PAGE=12;
 const uniq=arr=>{const m=new Map();arr.filter(Boolean).forEach(v=>{const k=norm(v);if(!m.has(k))m.set(k,v)});return[...m.entries()].sort((a,b)=>a[1].localeCompare(b[1],"fr"))};
 const fill=(id,list)=>$(id).insertAdjacentHTML("beforeend",list.map(([k,v])=>`<option value="${esc(k)}">${esc(v)}</option>`).join(""));
 function filtered(){
  const q=norm($("fq").value),mk=$("fm").value,en=$("fn").value,bo=$("fo").value,pm=+$("fp").value||0,an=+$("fa").value||0,km=+$("fk").value||0,so=$("fs").value;
  const L=CARS.map((_,i)=>i).filter(i=>{const a=CARS[i];
+  if((a.statut==="vendu")!==(MODE==="vendu"))return false;
   if(q&&!norm(a.titre).includes(q))return false;
   if(mk&&norm(marque(a.titre))!==mk)return false;
   if(en&&norm(a.energie)!==en)return false;
@@ -134,17 +138,21 @@ function more(){
  $("more").hidden=SHOWN>=LIST.length;$("more").textContent="Voir plus de véhicules ("+(LIST.length-SHOWN)+" restants)"}
 function view(){
  LIST=filtered();SHOWN=0;$("cars").innerHTML="";
- const on=LIST.length!==CARS.length;
- $("res").textContent=LIST.length+" véhicule"+(LIST.length>1?"s":"")+(on?" sur "+CARS.length:"");
+ const tot=CARS.filter(a=>(a.statut==="vendu")===(MODE==="vendu")).length,on=LIST.length!==tot;
+ $("res").textContent=LIST.length+" véhicule"+(LIST.length>1?"s":"")+(on?" sur "+tot:"");
  if(!LIST.length){$("more").hidden=true;$("cars").innerHTML='<div class="empty" style="grid-column:1/-1">Aucun véhicule ne correspond à ces critères.<br><br><button class="btn g" type="button" data-reset>Réinitialiser les filtres</button> <a class="btn" href="#top">Lancer une recherche personnalisée</a></div>';return}
  more()}
 function resetFilters(){$("flt").querySelectorAll("input").forEach(x=>x.value="");$("flt").querySelectorAll("select").forEach(x=>x.selectedIndex=0);view()}
+function setMode(m,quiet){MODE=m;document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.mode===m));$("soldnote").hidden=m!=="vendu";const p=$("fp");if(p)p.closest("label").hidden=m==="vendu";if(!quiet)view()}
 async function loadCars(){
  try{
   const c=await (await fetch("/api/config")).json();
-  const r=await fetch(c.url+"/rest/v1/annonces?select=*&statut=neq.vendu&order=created_at.desc&limit=500",{headers:{apikey:c.anonKey}});
+  const r=await fetch(c.url+"/rest/v1/annonces?select=*&order=created_at.desc&limit=1000",{headers:{apikey:c.anonKey}});
   if(!r.ok)throw 0;CARS=await r.json();
-  if(!CARS.length){$("res").textContent="";$("cars").innerHTML='<div class="empty" style="grid-column:1/-1">Aucun véhicule en ligne pour le moment. Lancez une recherche personnalisée ou contactez‑nous au 06 82 00 71 94.</div>';return}
+  const ND=CARS.filter(a=>a.statut!=="vendu").length,NS=CARS.length-ND;
+  if(NS){$("tabs").hidden=false;$("nd").textContent="("+ND+")";$("ns").textContent="("+NS+")"}
+  if(!ND&&!NS){$("res").textContent="";$("cars").innerHTML='<div class="empty" style="grid-column:1/-1">Aucun véhicule en ligne pour le moment. Lancez une recherche personnalisée ou contactez‑nous au 06 82 00 71 94.</div>';return}
+  if(!ND&&NS)setMode("vendu",true);
   fill("fm",uniq(CARS.map(a=>marque(a.titre))));fill("fn",uniq(CARS.map(a=>a.energie)));fill("fo",uniq(CARS.map(a=>a.boite)));
   $("flt").hidden=false;if(matchMedia("(min-width:821px)").matches)$("flt").open=true;
   view();
@@ -204,16 +212,16 @@ function openCar(i,call){
  CUR=i;const a=CARS[i],ph=a.photos||[];
  $("db").innerHTML=`${X}<h2>${esc(a.titre)}</h2><div class="gm" id="gm">${ph[0]?`<img src="${esc(ph[0])}" alt="${esc(a.titre)}">`:"Photo à venir"}</div>
  ${ph.length>1?`<div class="ths">${ph.map((u,k)=>`<button type="button" class="tb ${k?"":"on"}" data-ph="${k}" aria-label="Photo ${k+1}"><img src="${esc(u)}" alt="" loading="lazy"></button>`).join("")}</div>`:""}
- <div class="pr">${fmt(a.prix)} € TTC</div>
+ ${a.statut==="vendu"?'<p class="pr" style="color:#8a8f98">Véhicule vendu</p>':`<div class="pr">${fmt(a.prix)} € TTC</div>`}
  <ul class="sp"><li><span>Année</span><br>${esc(a.annee||"–")}</li><li><span>Kilométrage</span><br>${a.km!=null?fmt(a.km)+" km":"–"}</li><li><span>Énergie</span><br>${esc(a.energie||"–")}</li><li><span>Boîte</span><br>${esc(a.boite||"–")}</li></ul>
  ${a.description?`<p>${esc(a.description)}</p>`:""}<div class="tg">${(a.equipements||[]).map(x=>`<span>${esc(x)}</span>`).join("")}</div>
- ${a.statut==="reserve"?'<p class="mt"><strong>Ce véhicule est actuellement réservé.</strong></p>':`<button class="btn" type="button" data-buy="${i}">Réserver ce véhicule</button>`}
- <a class="lk go" href="${vurl(a)}">Ouvrir la page de ce véhicule</a>
+ ${a.statut==="vendu"?'<p class="mt"><strong>Ce véhicule a été vendu.</strong> Nous pouvons vous trouver le même.</p>':a.statut==="reserve"?'<p class="mt"><strong>Ce véhicule est actuellement réservé.</strong></p>':`<button class="btn" type="button" data-buy="${i}">Réserver ce véhicule</button>`}
+ ${a.statut==="vendu"?"":`<a class="lk go" href="${vurl(a)}">Ouvrir la page de ce véhicule</a>`}
  <a class="lk go" href="#top" data-prefill data-car="${i}">Ce modèle vous plaît mais pas cette version ? On le trouve pour vous</a>
- <form id="fc"><h3 style="margin-top:22px;font-size:20px">Être rappelé à propos de ce véhicule</h3>
+ ${a.statut==="vendu"?"":`<form id="fc"><h3 style="margin-top:22px;font-size:20px">Être rappelé à propos de ce véhicule</h3>
  <div class="r2"><label>Nom<input id="c1" name="nom" autocomplete="name" required></label><label>Téléphone<input name="telephone" type="tel" autocomplete="tel" required></label></div>
- ${CONS}<button class="btn g" type="submit">Être rappelé</button><p class="er" role="alert"></p></form>`;
- hook("fc","rappel",{vehicule:a.titre,annonce_id:a.id},"Demande envoyée",()=>`Nous vous rappelons très vite au sujet de : ${esc(a.titre)}.`);
+ ${CONS}<button class="btn g" type="submit">Être rappelé</button><p class="er" role="alert"></p></form>`}`;
+ if(a.statut!=="vendu")hook("fc","rappel",{vehicule:a.titre,annonce_id:a.id},"Demande envoyée",()=>`Nous vous rappelons très vite au sujet de : ${esc(a.titre)}.`);
  $("dlg").showModal();if(call)setTimeout(()=>$("c1").focus(),60);
 }
 function openBuy(i){
@@ -292,7 +300,8 @@ const LEGAL=()=>info("Mentions légales",`<p><strong>Éditeur du site</strong><b
 const PRIV=()=>info("Politique de confidentialité",`<p><strong>Responsable du traitement :</strong> EDEN AUTOMOBILES, 3 chemin de Candie, 31120 Portet-sur-Garonne, accueil.edenautomobiles@gmail.com.</p><p><strong>Données collectées :</strong> nom, téléphone, email, ville, adresse de livraison le cas échéant, informations sur votre véhicule (dont l’immatriculation pour une estimation) et, pour une recherche personnalisée, vos critères (budget, modèle souhaité, options).</p><p><strong>Finalité :</strong> vous rappeler et traiter votre demande d’estimation, de reprise, de dépôt-vente, de réservation ou de recherche personnalisée. Ces données ne sont pas revendues.</p><p><strong>Immatriculation :</strong> elle est supprimée dès que vous avez été rappelé.</p><p><strong>Conservation :</strong> le temps nécessaire au traitement de votre demande.</p><p><strong>Vos droits :</strong> accès, rectification, suppression, opposition. Écrivez-nous à l’adresse ci-dessus. Vous pouvez aussi saisir la CNIL (cnil.fr).</p><p><strong>Cookies :</strong> ce site n’utilise aucun cookie de suivi. La carte Google Maps de la page Contact n’est chargée que si vous cliquez sur « Afficher la carte » : Google peut alors déposer des cookies et recevoir votre adresse IP.</p>`);
 document.addEventListener("click",e=>{
  const t=e.target.closest("button,a[data-est],a[data-prefill],a[data-car],[data-open]");if(!t)return;const d=t.dataset;if(t.tagName==="A"&&d.car!==undefined)e.preventDefault();
- if("close" in d){$("dlg").close()}
+ if(d.mode){setMode(d.mode)}
+ else if("close" in d){$("dlg").close()}
  else if("prefill" in d){if($("dlg").open)$("dlg").close();prefillSM(d.car!==undefined?+d.car:null)}
  else if(d.rv!==undefined){const r=$("revs");r.scrollBy({left:+d.rv*(r.clientWidth*.8),behavior:"smooth"})}
  else if("reset" in d)resetFilters()
